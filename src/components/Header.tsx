@@ -2,13 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ThemeToggle } from './ThemeToggle';
 
-const navItems = [
-  { href: '/about', label: 'About' },
-  { href: '/posts', label: 'Posts' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/speaking', label: 'Talks' },
-];
-
 export function Header() {
   return (
     <header className="py-8">
@@ -28,15 +21,30 @@ export function Header() {
         </Link>
 
         <nav className="flex items-center gap-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
-            >
-              {item.label}
-            </Link>
-          ))}
+          <Link
+            href="/about"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+          >
+            About
+          </Link>
+          <Link
+            href="/posts"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+          >
+            Posts
+          </Link>
+          <Link
+            href="/projects"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+          >
+            Projects
+          </Link>
+          <Link
+            href="/speaking"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+          >
+            Talks
+          </Link>
           <ThemeToggle />
         </nav>
       </div>

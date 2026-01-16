@@ -71,3 +71,33 @@ featuredImage: /path/to/image.jpg  # optional
 - `<YouTube id="..." />` - YouTube embeds
 - `<Image src="..." alt="..." />` - Optimized images with captions
 - `<GitHubStats repo="owner/repo" />` - GitHub repo stats
+
+## Design Patterns
+
+### Prefer Direct JSX Over Array Mapping
+
+For static UI elements like navigation links, footer links, and other fixed content, render JSX directly instead of creating arrays and mapping over them.
+
+**Don't do this:**
+```tsx
+const navItems = [
+  { href: '/about', label: 'About' },
+  { href: '/posts', label: 'Posts' },
+];
+
+navItems.map(item => <Link href={item.href}>{item.label}</Link>)
+```
+
+**Do this instead:**
+```tsx
+<Link href="/about">About</Link>
+<Link href="/posts">Posts</Link>
+```
+
+**Why:**
+- Simpler and more readable
+- Easier to customize individual items (e.g., different Tailwind classes per link)
+- Better for tooling - grep, search, and AI agents can find and modify the code directly
+- Avoids premature abstraction
+
+**Exceptions:** Use arrays/mapping when data is genuinely dynamic (from a database, CMS, or user input) or when you have many items (10+) that are truly uniform.

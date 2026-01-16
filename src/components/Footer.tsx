@@ -1,20 +1,5 @@
 import Link from 'next/link';
 
-const explore = [
-  { href: '/about', label: 'About' },
-  { href: '/posts', label: 'Writing' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/speaking', label: 'Talks' },
-];
-
-const social = [
-  { href: 'https://x.com/nickmdiego', label: 'X' },
-  { href: 'https://bsky.app/profile/nickdiego.com', label: 'Bluesky' },
-  { href: 'https://linkedin.com/in/nickmdiego', label: 'LinkedIn' },
-  { href: 'https://profiles.wordpress.org/ndiego', label: 'WordPress' },
-  { href: 'https://github.com/ndiego', label: 'GitHub' },
-];
-
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -25,34 +10,94 @@ export function Footer() {
           <div>
             <h3 className="font-medium mb-4">Explore</h3>
             <ul className="space-y-2">
-              {explore.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href="/about"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/posts"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Writing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/projects"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Projects
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/speaking"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Talks
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-medium mb-4">Connect</h3>
             <ul className="space-y-2">
-              {social.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <a
+                  href="https://x.com/nickmdiego"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  X
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://bsky.app/profile/nickdiego.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Bluesky
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://linkedin.com/in/nickmdiego"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://profiles.wordpress.org/ndiego"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  WordPress
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/ndiego"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  GitHub
+                </a>
+              </li>
             </ul>
           </div>
         </div>
