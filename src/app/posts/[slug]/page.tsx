@@ -85,20 +85,12 @@ export default async function PostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <article className="max-w-content mx-auto px-6 py-12">
-        <header className="mb-8">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-            {post.meta.categories.length > 0 && (
-              <>
-                {post.meta.categories.join(', ')}
-                <span className="text-border">·</span>
-              </>
-            )}
-            <time dateTime={post.meta.date}>{date}</time>
-            <span className="text-border">·</span>
-            <span>{post.meta.readingTime}</span>
-          </div>
-          <h1 className="text-3xl font-medium">{post.meta.title}</h1>
+      <article className="max-w-2xl mx-auto px-6 py-12">
+        <header className="mb-12">
+          <h1 className="text-3xl font-medium mb-2">{post.meta.title}</h1>
+          <time dateTime={post.meta.date} className="text-muted-foreground">
+            {date}
+          </time>
         </header>
 
         <div className="prose prose-neutral dark:prose-invert max-w-none">
@@ -124,6 +116,21 @@ export default async function PostPage({ params }: Props) {
             }}
           />
         </div>
+
+        {post.meta.categories.length > 0 && (
+          <footer className="mt-12 pt-8 border-t border-border">
+            <div className="flex flex-wrap gap-2">
+              {post.meta.categories.map((category: string) => (
+                <span
+                  key={category}
+                  className="px-4 py-2 text-sm border border-border rounded-full text-muted-foreground"
+                >
+                  {category}
+                </span>
+              ))}
+            </div>
+          </footer>
+        )}
       </article>
     </>
   );

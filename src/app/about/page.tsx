@@ -4,7 +4,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="max-w-content mx-auto px-6 py-12">
+    <div className="max-w-2xl mx-auto px-6 py-12">
       <h1 className="text-3xl font-medium mb-8">About</h1>
 
       <div className="prose prose-neutral dark:prose-invert max-w-none">

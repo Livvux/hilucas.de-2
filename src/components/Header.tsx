@@ -5,7 +5,7 @@ import { ThemeToggle } from './ThemeToggle';
 export function Header() {
   return (
     <header className="py-8">
-      <div className="flex items-center justify-between max-w-wide mx-auto px-6">
+      <div className="flex items-center justify-between max-w-2xl mx-auto px-6">
         <Link
           href="/"
           className="flex items-center gap-4 hover:opacity-70 transition-opacity"

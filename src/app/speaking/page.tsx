@@ -31,7 +31,7 @@ const talks = [
 
 export default function SpeakingPage() {
   return (
-    <div className="max-w-wide mx-auto px-6 py-12">
+    <div className="max-w-6xl mx-auto px-6 py-12">
       <h1 className="text-3xl font-medium mb-8">Talks</h1>
 
       <p className="text-muted-foreground mb-12 max-w-2xl">
