@@ -1,5 +1,6 @@
 import { getAllPosts, getAllCategories } from '@/lib/posts';
 import { PostCard } from '@/components/PostCard';
+import { getCategorySlug } from '@/lib/categories';
 import Link from 'next/link';
 
 export const metadata = {
@@ -36,7 +37,7 @@ export default function WritingPage() {
               {categories.map((cat) => (
                 <li key={cat}>
                   <Link
-                    href={`/writing?category=${cat.toLowerCase()}`}
+                    href={`/writing/category/${getCategorySlug(cat)}`}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {cat}

@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypeSlug from 'rehype-slug';
@@ -8,6 +9,7 @@ import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import { getMDXComponents } from '../../../mdx-components';
 import { siteConfig } from '@/lib/site';
 import { generateArticleJsonLd } from '@/lib/metadata';
+import { getCategorySlug } from '@/lib/categories';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -127,12 +129,13 @@ export default async function PostPage({ params }: Props) {
           <footer className="mt-12 pt-8 border-t border-border">
             <div className="flex flex-wrap gap-2">
               {post.meta.categories.map((category: string) => (
-                <span
+                <Link
                   key={category}
-                  className="px-4 py-2 text-sm border border-border rounded-full text-muted-foreground"
+                  href={`/writing/category/${getCategorySlug(category)}`}
+                  className="px-4 py-2 text-sm border border-border rounded-full text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
                 >
                   {category}
-                </span>
+                </Link>
               ))}
             </div>
           </footer>

@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import type { PostMeta } from '@/lib/posts';
+import { getCategorySlug } from '@/lib/categories';
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', {
   month: 'short',
@@ -14,10 +17,18 @@ export function PostCard({ post }: { post: PostMeta }) {
     <Link href={`/${post.slug}`} className="block">
       <article className="rounded-lg border border-border p-6 transition-colors hover:bg-muted/50">
         <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
-          <div className="flex items-center gap-1">
+          <div
+            className="flex items-center gap-1"
+            onClick={(e) => e.stopPropagation()}
+          >
             {post.categories.map((cat, i) => (
               <span key={cat}>
-                {cat}
+                <Link
+                  href={`/writing/category/${getCategorySlug(cat)}`}
+                  className="hover:text-foreground transition-colors"
+                >
+                  {cat}
+                </Link>
                 {i < post.categories.length - 1 && (
                   <span className="mx-1">·</span>
                 )}
