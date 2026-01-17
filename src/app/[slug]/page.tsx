@@ -66,7 +66,7 @@ export default async function PostPage({ params }: Props) {
   if (!post) notFound();
 
   const date = new Date(post.meta.date).toLocaleDateString('en-US', {
-    month: 'long',
+    month: 'short',
     day: 'numeric',
     year: 'numeric',
   });

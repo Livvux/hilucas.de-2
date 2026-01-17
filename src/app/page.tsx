@@ -24,16 +24,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Recent Writing */}
+      {/* Recent Posts */}
       <section>
-        <h2 className="text-2xl font-medium mb-4">Writing</h2>
+        <h2 className="text-2xl font-medium mb-4">Posts</h2>
         <p className="text-copy mb-8">
           Everything from WordPress tutorials and AI experiments to web
           development resources and personal updates.
         </p>
 
         {posts.length > 0 ? (
-          <div className="space-y-12 mb-8">
+          <div className="space-y-6 mb-8">
             {posts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
