@@ -1,0 +1,126 @@
+---
+title: "The Icon Block turns one plus a recap of Version 1.3.0"
+date: 2022-10-03
+excerpt: "One year and 4,000 active installs later, it's been a fantastic year for the Icon Block. Now you can do even more with v1.3.0."
+categories:
+  - Blocks
+---
+
+One year ago, I released the [Icon Block](https://wordpress.org/plugins/icon-block/) on WordPress.org after struggling to find an efficient way to add SVG icons to the Editor. I didn't want to use an entire block library plugin for such a simple task, and the HTML block was certainly not cutting it.
+
+Over 4,000 active installs later, the Icon Block has become one of my favorite side projects. Thank you to everyone that has used the block, submitted a support ticket, recommended a new feature, or written a review.
+
+And with that, I am pleased to announce version 1.3.0, and here is a brief overview of everything new in the plugin. Enjoy!
+
+## Enhancements
+
+One of my principles when building a custom block is to stay as close to WordPress core as possible. With WordPress 6.1 on the horizon, several enhancements were required to improve the Icon Block's compatibility with native block supports and theme.json. A few bug fixes and feature requests also needed tending to. Let's dive in.
+
+### Improved Custom SVG Support
+
+Before version 1.3.0, the Icon Block did not properly support custom SVGs that used `stroke` attributes. Applying an icon color to the block sets the chosen color to the `color` and `fill` attributes of the SVG. An ideal implementation for most SVGs, this approach would often break icons that used `stroke`. Therefore, users were encouraged to convert all SVGs to outlines or apply colors directly to the custom SVG code itself.
+
+This limitation made using certain icon libraries nearly impossible. A great example is the [Heroicons](https://heroicons.com/) icon suite by the makers of Tailwind CSS. Version 1.3.0 now includes a toggle to remove the custom color fill. You can see this in action below.
+
+<Image src="/images/posts/icon-block-no-fill-toggle.gif" alt="Using a Heroicon SVG with the new toggle fill color option." width={1127} height={826} caption={<>Using a Heroicon SVG with the new toggle fill color option.</>} />
+
+### Improved Borders and Spacing
+
+The Icon Block now supports all of the advanced border and spacing functionality that's coming in WordPress 6.1. This includes the ability to configure the border on each side of the icon as well as new spacing steps for margin and padding.
+
+<Image src="/images/posts/icon-block-border-spacing.png" alt="Updated border and spacing controls in preparation for WordPress 6.1" width={1049} height={778} caption={<>Updated border and spacing controls in preparation for WordPress 6.1</>} />
+
+You will need to use Gutenberg to take advantage of these new settings until WordPress 6.1 is officially released. WordPress 6.0 without Gutenberg will display the old border and spacing settings.
+
+### Added Title Attribute
+
+You can now add a `title` attribute to each icon. The `title` field is located in the Advanced tab.
+
+<Image src="/images/posts/icon-block-title-attribute.png" alt="" width={656} height={530} caption={<>The new title attribute is located in the Advanced panel.</>} />
+
+### UI Standardization
+
+Great strides are taken to ensure the Icon Block user experience is as close to core WordPress as possible. Placeholders across many core blocks were overhauled in WordPress 6.1, mainly for media-related blocks. The Icon Block's custom placeholder was replaced with a more standard offering but with a bespoke inactive state.
+
+<Image src="/images/posts/icon-block-placeholder.gif" alt="The new placeholder component in the Icon Block." width={860} height={416} caption={<>The new placeholder component in the Icon Block.</>} />
+
+Like the border and spacing controls, you will need to install Gutenberg to see the new placeholder until 6.1 is released.
+
+And finally, you will now find the link `rel` field in the Advanced tab. The new placement is consistent with the core Image block and helped simplify the main icon settings panel.
+
+### Extensibility & Curation
+
+Being able to change, modify, or extend WordPress to meet your specific needs is at the heart of what makes the platform so great. I believe the same should hold for plugins. Therefore, I have implemented several features in the Icon Block that enable customization.
+
+#### Adding Your Own Icons
+
+Version 1.2.0 included new filters allowing you to add custom sets of the SVG icons to the plugin. More information is available in the article [Adding Custom Icons to the Icon Block](https://nickdiego.com/adding-custom-icons-to-the-icon-block/).
+
+The latest release adds support for custom SVG sets that use `stroke` attributes to correspond with the feature mentioned above. You can now specify the parameter `hasNoIconFill: true` on an icon, which will be inserted with the fill toggle automatically disabled.
+
+#### Disabling Custom SVGs
+
+There is now a new filter titled `iconBlock.enableCustomIcons` that controls whether users can add custom SVGs to the Icon Block. In certain situations, you may want to restrict users to just the icon library and disable custom SVGs entirely. Below is an example implementation.
+
+```javascript
+wp.hooks.addFilter(
+	'iconBlock.enableCustomIcons',
+	'example-theme/disable-custom-icons',
+	() => false
+);
+```
+
+#### Theme.json & Global Styles
+
+Border, margin, and padding settings in the Icon Block are configurable in theme.json and in the Global Styles panel for themes that support this functionality. Eventually, I would like to include color, but the implementation is tricky due to how color is applied in the block.
+
+The theme.json block configuration below will disable both border and spacing controls. A great way to simplify the editing experience if your users don't need it.
+
+```javascript
+{
+	...
+	"settings": {
+		...
+		"blocks": {
+			"outermost/icon-block": {
+				"border": {
+					"color": false,
+					"radius": false,
+					"style": false,
+					"width": false
+				},
+				"spacing": {
+					"margin": false,
+					"padding": false
+				}
+			},
+...
+```
+
+Border and spacing controls can be configured globally in the Site Editor if you are using a block theme.
+
+<Image src="/images/posts/icon-block-global-styles.gif" alt="Setting border and spacing styles in the Global Styles panel." width={750} height={600} caption={<>How to set border and spacing styles in the Global Styles panel.</>} />
+
+## Bug Fixes
+
+Two minor bugs were also squashed in the 1.3.0 release.
+
+- Fix bug where theme colors overrode icon color and fill.
+
+- Fix visual inconsistency between the frontend and Editor due to `box-sizing` not getting applied in the Editor.
+
+The complete [changelog](https://wordpress.org/plugins/icon-block/#developers) is available on WordPress.org.
+
+## Looking Ahead
+
+The past year has been fantastic for the [Icon Block](https://wordpress.org/plugins/icon-block/), but there is still plenty of work to do. My goal is for the plugin to be the de facto solution for SVG icons in WordPress if you do not want to use a block library. There are many great library plugins out there that include icon functionality, but libraries are not for everyone.
+
+You can follow along with current feature requests on the project's [GitHub repository](https://github.com/ndiego/icon-block/issues), but here are a few highlights of what's next on my list.
+
+1. Improve icon size handling. Allow for units rather than just pixels and possibly allow for an icon height setting.
+
+2. Allow users to insert custom SVG icons from an "uploaded" `.svg` file.
+
+3. Add hover state control for icon and background colors.
+
+If there is something that you would like to see, feel free to add your own issues on Github. In the meantime, you can stay tuned for more updates by following [@theiconblock](https://twitter.com/theiconblock) or [myself](https://twitter.com/nickmdiego) on Twitter.

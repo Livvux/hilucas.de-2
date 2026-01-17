@@ -1,0 +1,99 @@
+---
+title: "Displaying Custom Taxonomies in the WordPress Site Editor"
+date: 2021-02-26
+excerpt: "Using block variations, learn how to add dedicated custom taxonomy blocks to WordPress."
+categories:
+  - Tutorials
+---
+
+<Notice type="info">
+In WordPress 6.1, you no longer have to manually add custom taxonomy blocks. Whenever a custom taxonomy is registered, WordPress will automatically add a corresponding block.
+</Notice>
+
+I am working on building a new site for one of [my projects](https://nickdiego.com/current-projects/). On that site, I have a "Knowledge Base" section that utilizes a custom post type called `article`. Articles have a number of custom taxonomies, one of which is `article-category`. These "Article Categories" are different from normal post categories and I need a way to display them in the WordPress Site Editor **as a block**.
+
+[Skip to solution](#solution)
+
+## The problem
+
+If you are using the [Gutenberg](https://wordpress.org/plugins/gutenberg/) plugin, you have access to all the latest tools for Full Site Editing (FSE). The Site Editor is the focal point of FSE. While everything is still very much in beta mode, I am using block-based themes (required for FSE) on my personal sites. This is forcing me to learn more about the project as a whole and get ready for the introduction of FSE in WordPress version 5.8 later this year.
+
+Gutenberg currently includes a very handy block called "Post Categories", which displays the current post's categories. See the end of this post for an example.
+
+<Image src="/images/posts/image-3-1024x594.png" alt="" width={1024} height={594} caption={<>The Post Categories block in the block inserter.</>} />
+
+The name of the block should be changed in the future because it actually allows you to display **any** taxonomy. But, there is a catch, which is why I am writing this article.
+
+The block contains virtually no settings, and there is no way to select from all available taxonomies directly from the block interface. Perhaps this will be added in the future, but for theme developers, there is actually a very elegant solution, despite it not being documented (yet).
+
+**Block variations. **
+
+Until this point, I had never explored block variations, and there is very little official documentation on the subject. But as I was perusing the code on [GitHub](https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src/post-hierarchical-terms) for the Post Terms block, I discovered the `variations.js` file, which looks like this:
+
+```javascript
+/**
+ * WordPress dependencies
+ */
+import { __ } from '@wordpress/i18n';
+
+const variations = &#91;
+	{
+		name: 'category',
+		title: __( 'Post Categories' ),
+		icon: 'category',
+		isDefault: true,
+		attributes: { term: 'category' },
+	},
+];
+
+export default variations;
+```
+
+## The solution
+
+While I had a vague knowledge of block variations, a quick Google search on block variations led me to an article on [CSS Tricks](https://css-tricks.com/how-to-use-block-variations-in-wordpress/) and an article by [Rich Tabor](https://richtabor.com/block-variations/).
+
+Since it seemed like the Post Terms block accepts variations and has a `term` attribute, I threw together the following code in a `register-block-variations.js` file in my theme. Note that the title should really be translatable for completeness.
+
+```javascript
+/**
+ * Register the Article Categories variation for the Post Terms block.
+ */
+wp.domReady( () => {
+
+    wp.blocks.registerBlockVariation(
+        'core/post-terms',
+        {
+            name: 'article-category',
+    		title: 'Article Categories',
+    		icon: 'category',
+    		isDefault: false,
+    		attributes: { term: 'article-category' },
+        },
+    );
+
+} );
+```
+
+Finally, we just need to enqueue the file. Something like this:
+
+```javascript
+/**
+ * Enqueue block variations script.
+ */
+function namespace_enqueue_block_variations() {
+
+	wp_enqueue_script( 'namespace-enqueue-block-variations', get_theme_file_uri( '/register-block-variations.js' ), array( 'wp-blocks', 'wp-dom', 'wp-edit-post' ), wp_get_theme()->get( 'Version' ), true );
+}
+add_action( 'enqueue_block_editor_assets', 'namespace_enqueue_block_variations' );
+```
+
+Now when I search in the block inserter, the "Article Categories" variation appears! ?
+
+<Image src="/images/posts/image-2-1024x587.png" alt="" width={1024} height={587} caption={<>The Article Categories block variation in the block inserter.</>} />
+
+This solution can then be repeated for any number of custom taxonomies that you have on your theme.
+
+Ultimately, it would be helpful if the "Post Terms" block just included settings that allowed you to select the terms (i.e. taxonomies) that you wish to display. But block variations work very well and having a separate "block" that appears in the inserter for each taxonomy is nice when working on complicated layouts in FSE.
+
+I hope that was helpful, and let me know if you have discovered anything interesting about FSE. This is all one big learning experience!

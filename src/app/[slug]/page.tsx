@@ -5,7 +5,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
-import { getMDXComponents } from '../../../../mdx-components';
+import { getMDXComponents } from '../../../mdx-components';
 import { siteConfig } from '@/lib/site';
 import { generateArticleJsonLd } from '@/lib/metadata';
 
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(slug);
   if (!post) return {};
 
-  const url = `${siteConfig.url}/posts/${slug}`;
+  const url = `${siteConfig.url}/${slug}`;
   const ogImage = post.meta.featuredImage
     ? post.meta.featuredImage
     : `${siteConfig.url}/api/og?title=${encodeURIComponent(post.meta.title)}&subtitle=${encodeURIComponent(post.meta.excerpt)}`;
@@ -74,7 +74,7 @@ export default async function PostPage({ params }: Props) {
   const jsonLd = generateArticleJsonLd({
     title: post.meta.title,
     description: post.meta.excerpt,
-    path: `/posts/${slug}`,
+    path: `/${slug}`,
     publishedTime: post.meta.date,
     image: post.meta.featuredImage,
   });

@@ -1,0 +1,114 @@
+---
+title: "Disable Responsive Columns in Gutenberg and Other Tips"
+date: 2021-07-07
+excerpt: "A handful of useful CSS examples to customize the Columns block in WordPress."
+categories:
+  - Tutorials
+---
+
+<Notice type="info">
+Since this article was written, it's now possible to disable responsive columns in the Columns block settings. The remaining CSS examples are still valid.
+</Notice>
+
+If you have been working with Gutenberg, especially the new Full Site Editor, you may have found yourself a bit frustrated with the Columns block. 
+
+The block generally works great on desktops. Yes, I would like to be able to control the space between columns in the Block Editor, but that’s a minor gripe. However, things do start to fall apart on mobile devices. 
+
+## Applying Different Breakpoints 
+
+The Columns block natively collapses down to a single column at 600px. This makes some initial sense. In most layouts, the content in each column would become very “squished” if the columns were not mobile responsive. 
+
+But what if I want to change the breakpoint at which the columns collapse?
+
+In one application, I am using the Columns block to support a sidebar-content design. I need the columns to collapse at 782px to match my desired layout. 600px is way too small. 
+
+Luckily we can make this happen with some simple CSS.
+
+```javascript
+/* Extend responsive column styling to 782px (Default is 600px) */
+@media (max-width: 782px) {
+
+    .wp-block-columns .wp-block-column {
+        flex-basis: 100% !important;
+    }
+
+	.wp-block-column:nth-child(2n) {
+		margin-left: 0;
+	}
+}
+```
+
+The `.wp-block-column:nth-child(2n)` line defines the space between each column. WordPress sets this to zero automatically at 600px. We need this to be zero starting at 782px.
+
+## Reversing Columns on Mobile
+
+What about the order of the columns when they become stacked on mobile devices? 
+
+In my sidebar-content layout, I want to the sidebar to appear **after** the main content on mobile devices. By default the Columns block collapses the individual columns from left to right. In many cases this would be the desired implementation, but for my theme’s layout, I need the reverse. 
+
+Here I chose to implement this as a special CSS class. Then I can apply the class `column-reverse-on-mobile` as needed to the relevant Columns blocks. If you wanted to get fancy, you could also create a [block style](https://themeshaper.com/2019/02/15/customizing-gutenberg-blocks-with-block-styles/).
+
+```javascript
+/* Reverse the order of columns on mobile devices */
+@media (max-width: 782px) {
+
+    .wp-block-columns.column-reverse-on-mobile {
+        flex-direction: column-reverse;
+    }
+}
+```
+
+## Disabling Responsive Columns on Mobile
+
+What if you don’t want the columns to be mobile responsive at all? 
+
+There are many use cases for this, notably the header on a website. I am using a Columns block for a header in one of my themes. The left column has the Site Logo block and the right column has a Navigation block. By default, it looks like this on mobile. 
+
+*Note here that I am using the new “Enable responsive menu” functionality on the Navigation block. *
+
+<Image src="/images/posts/incorrect-header.jpg" alt="" width={520} height={140} />
+
+You can see that the menu icon is below the logo because the columns are stacked on top of each other. 
+
+Instead, I want it to look like this.
+
+<Image src="/images/posts/correct-header.jpg" alt="" width={519} height={120} />
+
+Disabling responsive columns can be achieved using the following CSS. Again, I have chosen to use a CSS class so I can easily apply it to Columns blocks at will.
+
+```javascript
+/* Disable responsive columns on mobile */
+@media (max-width: 782px) {
+
+    .wp-block-columns.is-not-stacked-on-mobile {
+		flex-wrap: nowrap;
+    }
+
+    /* Available space should be divided equally amongst columns. */
+	.wp-block-columns.is-not-stacked-on-mobile > .wp-block-column {
+		flex-basis: 0 !important;
+		flex-grow: 1;
+    }
+
+    /* When columns are in a single row, add space before all except the first. */
+    .wp-block-columns.is-not-stacked-on-mobile > .wp-block-column:not(:first-child) {
+        margin-left: 2em;
+    }
+
+    /* Columns with an explicitly-assigned width should maintain their`flex-basis` width and not grow. */
+    .wp-block-columns.is-not-stacked-on-mobile > .wp-block-column&#91;style*="flex-basis"] {
+        flex-basis: auto !important;
+        flex-grow: 0;
+    }
+}
+```
+
+This CSS was actually adapted from a [GitHub ticket](https://github.com/WordPress/gutenberg/pull/31816) for the Gutenberg project. I am excited to say that [@andrewserong](https://github.com/andrewserong) has implemented a toggle directly in the Columns block settings, which will handle this functionality for you.
+
+At the time of writing, it looks like this enhancement will soon be added to Gutenberg version 11.1. However, it will likely be some time until it makes its way into WordPress core. 
+
+It's important to note that there may be some quirks in the code. As mentioned in the GitHub ticket, more optimal approaches will be explored in the future. But in the meantime, take advantage of the CSS above to stop your columns from being responsive.
+
+I am sure there are other solutions out there and additional Column block-related tricks you can employ. Let me know if you have come across any good ones yourself!
+
+I am going to try and document more Gutenberg and Full Site Editing tips as I discover them. [Follow me on Twitter](https://twitter.com/nickmdiego) to stay in the loop.

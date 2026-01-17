@@ -69,8 +69,53 @@ featuredImage: /path/to/image.jpg  # optional
 
 - `<CodeBlock>` - Syntax highlighted code with line numbers, copy button, collapsible
 - `<YouTube id="..." />` - YouTube embeds
-- `<Image src="..." alt="..." />` - Optimized images with captions
+- `<Image>` - Next.js optimized images with captions and size variants
 - `<GitHubStats repo="owner/repo" />` - GitHub repo stats
+
+### Image Usage
+
+The `<Image>` component uses Next.js Image optimization. **Width and height are required** for proper aspect ratio and optimization.
+
+```mdx
+<Image
+  src="/images/posts/screenshot.png"
+  alt="Description of the image"
+  width={1024}
+  height={768}
+/>
+```
+
+**Available props:**
+- `src` (required) - Path to the image
+- `alt` (required) - Alt text for accessibility
+- `width` (required) - Original image width in pixels
+- `height` (required) - Original image height in pixels
+- `size` - Size variant: `"default"` (full content width) or `"small"` (60% width, centered)
+- `caption` - Optional caption displayed below the image (supports JSX)
+- `bordered` - Add a border around the image
+- `priority` - Load image with priority (for above-the-fold images)
+
+**Size variants:**
+```mdx
+{/* Full width (default) */}
+<Image src="..." alt="..." width={1024} height={768} />
+
+{/* 60% width, centered */}
+<Image src="..." alt="..." width={500} height={400} size="small" />
+```
+
+**With caption:**
+```mdx
+<Image
+  src="/images/posts/example-screenshot.png"
+  alt="Screenshot"
+  width={1024}
+  height={768}
+  caption={<>This is a caption with a [link](https://example.com).</>}
+/>
+```
+
+**Getting image dimensions:** Use `sips -g pixelWidth -g pixelHeight path/to/image.png` on macOS to get dimensions.
 
 ### CodeBlock Usage
 

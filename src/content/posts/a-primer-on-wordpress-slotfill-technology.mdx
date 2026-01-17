@@ -1,0 +1,233 @@
+---
+title: "A primer on WordPress SlotFill technology"
+date: 2021-01-03
+excerpt: "What is SlotFill and how can you use it in your own projects?"
+categories:
+  - Tutorials
+---
+
+What is SlotFill and how can you use it in your projects? Well, let's start at the beginning of my SlotFill exploration.
+
+A common business model in the WordPress ecosystem is to provide a free plugin (or theme), generally distributed on WordPress.org, and then offer premium functionality that users can purchase.
+
+Two real-world examples are [WooCommerce](https://woocommerce.com/products/) and [Easy Digital Downloads](https://easydigitaldownloads.com/downloads/). Both companies offer a base plugin on WordPress.org and then sell a variety of extensions.
+
+If you follow this approach, at some point in the development process you will probably find yourself asking, "How do I integrate my premium functionality with the base plugin?"
+
+At least I did.
+
+## Extensibility
+
+One of the best qualities of WordPress is its extensibility. Whether you want to extend WordPress itself, or your own project, the most common method is to use [WordPress hooks](https://developer.wordpress.org/plugins/hooks/). Using our plugin example, hooks allow you to register custom actions and filters throughout the plugin in important spots. Premium functionality can then be "hooked" into your project giving users access to these paid features.
+
+Plugin development aside, if you have ever tinkered with a WordPress theme you have undoubtedly come into contact with hooks. Actions and filters are everywhere in WordPress. Take one look at a theme's `functions.php` file and you will find numerous instances of `add_action()` and `add_filter()`.
+
+Traditional WordPress hooks, however, are based in PHP. With WordPress quickly moving to React due to the Block Editor, many new projects will likely be built almost entirely in JavaScript. This does not mean that PHP hooks will be going away, but it does require new technology to provide similar extensibility when working with JavaScript. I ran into this problem myself with my [Block Visibility](https://www.blockvisibilitywp.com/) plugin.
+
+Now there is actually an analogous [hook API for JavaScript](https://developer.wordpress.org/block-editor/developers/filters/), and I will be using it in this article's example, but I want to showcase how you can use SlotFill to accomplish many of your extensibility needs in JavaScript.
+
+So what is SlotFill?
+
+## SlotFill Overview
+
+Based on my research, [SlotFill](https://developer.wordpress.org/block-editor/components/slot-fill/) was implemented into WordPress by the team over at 10up with [Ryan Welcher](https://ryanwelcher.com/) spearheading most of the development. Ryan put together a [great overview](https://10up.com/blog/2019/extending-gutenberg-with-slotfill/) of SlotFill back in 2019. He describes SlotFill as basically a modern take on the traditional (PHP) WordPress hook architecture.
+
+> Slot and Fill are a pair of components which enable developers to render elsewhere in a React element tree, a pattern often referred to as “portal” rendering. It is a pattern for component extensibility, where a single Slot may be occupied by an indeterminate number of Fills elsewhere in the application.
+> 
+> Ryan Welcher - Extending Gutenberg With SlotFill and Filters
+
+There are three components that makeup SlotFill. In addition to `Slot` and `Fill`, the application needs to be wrapped in the `SlotFillProvider` component which essentially enables everything. Below is an adapted example from the Block Editor Handbook.
+
+```javascript
+import { SlotFillProvider, Slot, Fill, Panel, PanelBody } from '@wordpress/components';
+ 
+const ExampleSlotComponent = ( props ) => {
+ 
+    return (
+        <SlotFillProvider>
+            
+
+                    <Slot name="ExampleSlot"/>
+                </PanelBody>
+            </Panel>
+            <Fill name="ExampleSlot">
+                Panel body
+            </Fill>
+        </SlotFillProvider>
+    );
+};
+```
+
+Even though the content in the `Fill` component is written outside of the `<Panel>` component, it will actually be rendered inside of `<PanelBody>`.
+
+It's like magic!
+
+In all seriousness though, I encourage you go read Ryan's article and watch the presentation that he did at the 2019 JavaScript for WordPress conference, [The Gutenberg SlotFill System](https://www.youtube.com/watch?v=pMD0WpMaXEo). These resources provide an in-depth overview of how SlotFill works and how it has been implemented into the new Block Editor (Gutenberg). With SlotFill currently being used extensively throughout the Block Editor, it will likely become a primary tool for maintaining WordPress extensibility in the future.
+
+That said, since this technology is included with WordPress core, third-party developers (like myself) can make use of this pattern in their own projects!
+
+## SlotFill in Practice
+
+In my current project, I have a custom settings page that is written in React and lives in my base plugin. I then have a premium add-on plugin that provides additional features and settings. When the add-on is activated, I would like these new individual settings to appear on the main settings page provided by the base plugin. Specifically, I want a license activation box to appear at the top of the page and the other premium settings to display at the bottom.
+
+<Image src="/images/posts/SlotFill-Pre-1200.jpg" alt="" width={1200} height={756} caption={<>The current settings page before SlotFill is introduced</>} />
+
+I will be using SlotFill, so the settings page needs to have a `Slot` at the top and bottom. The license activation box would be placed in a `Fill` for the top `Slot`. The other settings would be placed in a `Fill` for the bottom `Slot`.
+
+First, we need to reconfigure the main base plugin to make use of SlotFill.
+
+### Main Plugin
+
+Let's assume that the JSX markup for the settings panel looks something like the following.
+
+```javascript
+const SettingsComponent = ( props ) => {
+
+    return (
+        
+            <div className="setting-item">
+                // Existing setting in main plugin
+            
+            
+                // Existing setting in main plugin
+            
+        </div>
+    );
+}
+```
+
+Let's add the SlotFill markup. You start by wrapping everything in the `SlotFillProvider` component and then add the various `Slot` components. In this example, I want a slot at the beginning of the settings container and one at the end.
+
+```javascript
+import { SlotFillProvider, Slot } from '@wordpress/components';
+
+const SettingsComponent = ( props ) => {
+
+    return (        
+        <SlotFillProvider>
+            
+                <Slot name="PluginSettingsTop">
+                <div className="setting-item">
+                    // Existing setting in main plugin
+                
+                
+                    // Existing setting in main plugin
+                
+                <Slot name="PluginSettingsBottom">
+            </div>
+        </SlotFillProvider>
+    );
+}
+```
+
+Finally, we need to add a component that we can filter which will allow us to add our Fill components from the premium add-on. Think of this component as a "doorway" into the main plugin. Also, if you need properties from the main plugin to be available in the add-on, you can simply pass them to this component.
+
+In the code block below, I have created the `AdditionalSettings` component using the `withFilters()` function. You can learn more about this function in the [Block Editor Handbook](https://developer.wordpress.org/block-editor/components/with-filters/). In general, it provides filtering capabilities to a component that can then be controlled by an external hook name, in this case `myExamplePlugin.Settings`.
+
+Note that I am using a bit of a trick here. Instead of passing a component to `withFilters()` as the documentation indicates, I am just passing `( props ) => <></>`. All the content we need is provided by the premium add-on, so we are just filtering an empty JSX fragment. Other implementations may be different, so review the documentation in the Block Editor Handbook if you are not familiar with `withFilters()`.
+
+I then added the `AdditionalSettings` component inside of the `SlotFillProvider` and included the properties that I want to pass.
+
+```javascript
+import { withFilters, SlotFillProvider, Slot } from '@wordpress/components';
+
+const SettingsComponent = ( props ) => {
+
+    const AdditionalSettings = withFilters(
+            'myExamplePlugin.Settings'
+        )( ( props ) => <></> );
+
+    return (
+        <SlotFillProvider>
+            <AdditionalSettings
+                exampleProp={ exampleProp }
+                { ...props }
+            />
+            
+                <Slot name="SettingsTop">
+                <div className="setting-item">
+                    // Existing setting in main plugin
+                
+                
+                    // Existing setting in main plugin
+                
+                <Slot name="SettingsBottom">
+            </div>
+        </SlotFillProvider>
+    );
+}
+```
+
+All the setup in the main plugin is now complete. Let's switch over to the premium add-on plugin.
+
+### Premium Add-on
+
+The setup for the premium add-on is quite simple. All we need to do is use the  `addFilter( 'hook', 'namespace', 'callback' )` function to add the necessary `Fill` components. We just need to make sure we are using the correct hook, which is `myExamplePlugin.Settings` in this example.
+
+Note that the namespace can be anything you like but is required unlike in PHP. More information on `addFilter()` can be found in the [Block Editor Handbook](https://developer.wordpress.org/block-editor/packages/packages-hooks/).
+
+```javascript
+import { addFilter } from '@wordpress/hooks';
+import { Fill } from '@wordpress/components';
+
+function premiumSettings() {
+    return ( props ) => (
+        <Fill name="SettingsTop">
+            
+                // The markup for the license activation box
+            
+        </Fill>
+        <Fill name="SettingsBottom">
+            
+                // Additional premium setting that should appear at the bottom of the settings container
+            
+        </Fill>
+    );
+}
+
+addFilter(
+    'myExamplePlugin.Settings',
+    'my-example-plugin/settings',
+    premiumSettings
+);
+```
+
+### Putting it all together
+
+That's all we need to do! Now when we load the settings page, the premium functionality in the `Fill` components will be "slotted" into the correct `Slot` components in the base plugin. ????
+
+<Image src="/images/posts/SlotFill-Post-1200.jpg" alt="SlotFill Example" width={1200} height={1029} caption={<>The settings page after premium functionality has been added via SlotFill</>} />
+
+## Summary
+
+Of course, in this example, I have abstracted away from how to actually build a React-powered setting page, and there is a ton of nuance concerning SlotFill that I am likely overlooking or have yet to learn myself. That said, I hope I have illustrated the potential of this technology and intrigued you enough to want to learn more and/or try using SlotFill in your own projects.
+
+Before ending, I want to share a couple of interesting discoveries and a list of all the SlotFill references I have been using. Surprisingly, there are not very many.
+
+### Discoveries
+
+**The SlotFillProvider component is not needed when you are adding custom Slots in the [block settings sidebar.](https://wordpress.org/support/article/wordpress-editor/#the-anatomy-of-a-block) **
+
+Under the hood, the entire settings sidebar in the Block Editor is wrapped in a `SlotFillProvider` component. This allows for developers to add controls to the `InspectorControls` component, add editor plugins, etc. This was the entire impetus for SlotFill as Ryan outlines in his article and presentation.
+
+Therefore, if you are adding your own `Slot` in a component that "lives" anywhere in the settings sidebar, you don't have to worry about wrapping your code in the `SlotFillProvider`. That is already taken care of for you!
+
+**You cannot programmatically set the display order of multiple Fills in a single Slot**.
+
+If you have multiple `Fill` components that all target a single `Slot`, there is no way to stay "Fill number 1 should be displayed first, then Fill number 2". This is unlike the hook API where you can specify a priority. Setting an `add_action()` or `add_filter()` with the priority 5, for example, will always be preformed before others with a priority greater than 5.
+
+Currently, `Fill` components are ordered based on how they were written in the code and how that code was loaded to the page. Whichever Fill slots into the Slot first will be displayed first. In the future, there will hopefully be a way to specify a priority for each `Fill`. That said, using the example above, I only really see this being an issue if you had multiple add-on plugins that were all providing `Fill` components for the same `Slot`.
+
+### References
+
+- Official [SlotFill](https://developer.wordpress.org/block-editor/components/slot-fill/) entry in WordPress Block Editor Handbook
+
+- ["Extending Gutenberg With SlotFill and Filters"](https://10up.com/blog/2019/extending-gutenberg-with-slotfill/) – Original 10up article by Ryan Welcher
+
+- ["The Gutenberg SlotFill System"](https://www.youtube.com/watch?v=pMD0WpMaXEo) – Video presentation by Ryan Welcher
+
+- [GitHub resource](https://github.com/ryanwelcher/extending-gutenberg) for "The Gutenberg SlotFill System" presentation
+
+- [Gutenberg SlotFill and Filter demos](https://github.com/10up/slotfill-and-filter-demos) – GitHub repo by 10up
+
+This article will get updated over time with new discoveries and insights. If you have any of your own, please share them in the comments!

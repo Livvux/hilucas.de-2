@@ -1,44 +1,57 @@
 import NextImage from 'next/image';
+import { ReactNode } from 'react';
+
+type ImageSize = 'default' | 'small';
 
 interface ImageProps {
   src: string;
   alt: string;
-  width?: number;
-  height?: number;
-  caption?: string;
+  width: number;
+  height: number;
+  size?: ImageSize;
+  caption?: ReactNode;
   priority?: boolean;
+  bordered?: boolean;
 }
+
+const sizeConfig: Record<ImageSize, { wrapperClassName: string; sizes: string }> = {
+  default: {
+    wrapperClassName: 'w-full',
+    sizes: '(max-width: 672px) 100vw, 672px',
+  },
+  small: {
+    wrapperClassName: 'w-[60%]',
+    sizes: '(max-width: 672px) 60vw, 403px',
+  },
+};
 
 export function Image({
   src,
   alt,
   width,
   height,
+  size = 'default',
   caption,
   priority = false,
+  bordered = true,
 }: ImageProps) {
-  // For images without dimensions, use fill layout
-  const useFill = !width || !height;
+  const { wrapperClassName, sizes } = sizeConfig[size];
 
   return (
-    <figure className="my-8">
-      <div
-        className={`relative overflow-hidden rounded-lg bg-muted ${
-          useFill ? 'aspect-video' : ''
-        }`}
-      >
+    <figure className={`my-8 ${size === 'small' ? 'flex flex-col items-center' : ''}`}>
+      <div className={wrapperClassName}>
         <NextImage
           src={src}
           alt={alt}
-          {...(useFill
-            ? { fill: true, className: 'object-cover' }
-            : { width, height, className: 'w-full h-auto' })}
+          width={width}
+          height={height}
           priority={priority}
-          sizes="(max-width: 768px) 100vw, 800px"
+          sizes={sizes}
+          className={`w-full h-auto rounded-lg ${bordered ? 'border border-border' : ''}`}
         />
       </div>
       {caption && (
-        <figcaption className="mt-3 text-center text-sm text-muted-foreground">
+        <figcaption className="mt-3 text-center text-sm text-muted-foreground [&_a]:underline [&_a]:underline-offset-2 [&_a]:hover:text-foreground [&_a]:transition-colors">
           {caption}
         </figcaption>
       )}

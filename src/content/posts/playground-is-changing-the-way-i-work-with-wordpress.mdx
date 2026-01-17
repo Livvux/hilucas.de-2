@@ -1,0 +1,54 @@
+---
+title: "Playground is changing the way I work with WordPress"
+date: 2024-01-16
+excerpt: "You need to try Playground if you haven't already. Customizable WordPress demo sites running in your browser for free."
+categories:
+  - Development
+  - WordPress
+---
+
+If you haven't tried Playground yet, head on over to [playground.wordpress.net](https://playground.wordpress.net/).
+
+At first, it might not seem that impressive. The link above takes you to a WordPress demo site where you can click around and do typical WordPress things.
+
+But the catch is that Playground is running entirely in your browser. I won't get into the wizardry that makes all this possible; you can learn more [here](https://wordpress.org/playground/) and [here](https://wordpress.github.io/wordpress-playground/).
+
+I want to focus on what Playground can do for plugin and theme developers. In a matter of seconds. For free.
+
+You might know that I run several WordPress plugins, [Block Visibility](https://wordpress.org/plugins/block-visibility/) being the most complex. You really have to try the plugin to appreciate how it works, but demo sites are annoying to set up and maintain. At least, that was my experience, but no longer now that Playground exists.
+
+[Demo Block Visibility](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/ndiego/block-visibility/main/_playground/blueprint.json)
+
+All I did was create a `blueprint.json` file and place it in the plugin's [GitHub repository](https://github.com/ndiego/block-visibility/tree/main/.playground) so it's publicly accessible. The file looks like this:
+
+```javascript
+{
+	"landingPage": "/wp-admin/plugins.php",
+	"features": {
+		"networking": true
+	},
+	"steps": &#91;
+		{
+			"step": "installPlugin",
+			"pluginZipFile": {
+				"resource": "wordpress.org/plugins",
+				"slug": "block-visibility"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "login",
+			"username": "admin",
+			"password": "password"
+		}
+	]
+}
+```
+
+You can then run Playground using this blueprint to launch WordPress pre-installed with Block Visibility. Easy as that.
+
+Here's the format you need for the URL: `playground.wordpress.net/?blueprint-url=[path-to-blueprint-file]`.
+
+This just scratches the surface of what Playground can do, so check out the [documentation](https://wordpress.github.io/wordpress-playground/) for more. Huge props to [Adam Zieliński](https://twitter.com/adamzielin) for bringing Playground into the world, and expect big things in 2024.

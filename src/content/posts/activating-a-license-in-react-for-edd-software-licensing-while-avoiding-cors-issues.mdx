@@ -1,0 +1,213 @@
+---
+title: "Activating a license in React for EDD Software Licensing while avoiding CORS issues"
+date: 2020-11-24
+excerpt: "How I overcame CORS issues while implementing EDD Software Licensing in a React-powered WordPress admin screen."
+categories:
+  - Tutorials
+---
+
+If you have ever written a WordPress plugin or theme with the ultimate goal of selling this content, you most likely stumbled upon [Easy Digital Downloads](https://easydigitaldownloads.com/), or EDD for short. EDD is my marketplace software of choice and was purpose-built to sell, well, digital downloads, making it perfect for WordPress developers.
+
+EDD has a number of add-ons, including the [Software Licensing](https://easydigitaldownloads.com/downloads/software-licensing/) add-on. This allows you to sell a product and provide a license key to the purchaser. In your plugin or theme, the user can then activate the license, which will enable automatic downloads and any additional functionality that you have developed.
+
+The process of activating a license is pretty straight forward, and EDD provides a number of examples, and even a sample plugin and theme, which shows you exactly how to get this all set up.
+
+**So what's the problem?**
+
+## JavaScript (React)
+
+JavaScript (React) is becoming increasingly important for WordPress development, especially with the introduction of the new Block Editor and full-site editing on the horizon. Therefore, in my [Block Visibility](https://nickdiego.com/projects/) project, I wanted to build an admin settings page in React as opposed to the normal method using PHP. This meant that the license activation would take place in a React component, which was exciting since it provided the opportunity to improve the activation UI. I was never that happy with previous implementations I had done in PHP.
+
+EDD conveniently had [an example](https://docs.easydigitaldownloads.com/article/1038-software-licensing-api---example-using-javascript) of how to activate licenses in pure JavaScript. This would be a quick port to React, so I figured the whole process would be quite simple.
+
+At this point, it is important to mention that I am a self-taught developer, and there are some holes in my "education". Seasoned developers may have been able to spot the impending issue right away, but hopefully, many of you will find my trials and tribulations insightful.
+
+In very general terms, when a user activates a license, they are sending a "request" back to the website that they purchased the product from, which will return a "response" indicating if the activation was successful or not. Enter CORS:
+
+> Cross-origin resource sharing (CORS) is a mechanism that allows restricted resources on a web page to be requested from another domain outside the domain from which the first resource was served.
+> 
+> Wikipedia
+
+Making a resource request between two websites can inherently have security implications. You don't want just anyone requesting license information, which includes some customer data, from your online store. If you try activating a license using the JavaScript example that EDD provides, there is a chance that you will get an error similar to the one below:
+
+<Image src="/images/posts/CORS-Error.png" alt="" width={936} height={109} caption={<>CORS Policy Error</>} />
+
+My store website did not have a [HTTP response header](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#The_HTTP_response_headers) set which resulted in this CORS error. There are of course ways to add a header to your server, Mozilla has a [nice writeup](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSMissingAllowOrigin) about this, but none of the options seemed reasonable from a convenience or security perspective. I am not trying to create a public API, and I don't want my project to rely on a specific server configuration to work properly.
+
+The saving grace here is that this issue really only impacts client-side requests, i.e. requests made in JavaScript. If the license activation request is made in PHP or server-side, you are able to bypass the CORS policy. This is by design, and there is a ton more information about CORS that you can find with a quick Google search. Too much to even try and dissect in this post.
+
+## The solution: Ajax
+
+Making the license request directly from JavaScript was a no-go for my setup, so I needed to head back to PHP. However, I still wanted all my license activation UI in React. The solution is to write a PHP function that handles the request and uses [Ajax](https://codex.wordpress.org/AJAX_in_Plugins) to invoke this function from React. Ajax is used pretty frequently in WordPress, but generally with jQuery. This was my first time making an Ajax call in React.
+
+### Enqueueing Scripts
+
+To get started, we need to append some variables to our project's JavaScript file using the `wp_add_inline_script` function. The two variables we need to add are the URL for the `admin-ajax.php` and a security token, or a [nonce](https://codex.wordpress.org/WordPress_Nonces). The implementation would look something like the following.
+
+```javascript
+function demo_enqueue_project_scripts() {
+
+	...
+
+	wp_enqueue_script(
+		'demo-setting-scripts',
+		plugin_dir_url( __FILE__ ) . 'dist/demo-settings.js',
+		array( 'wp-api' ), // Array of dependancies (Optional depending on your needs)
+		$version, // Script version (Optional depending on your needs)
+		true // Enqueue the file in the footer (Optional depending on your needs)
+	);
+
+	// Variables for running the license controls ajax request.
+	$variables = 'const demoAjaxUrl = ' . wp_json_encode( admin_url( 'admin-ajax.php' ) ) . ';';
+	$variables .= 'const demoLicenseControlsNonce = ' . wp_json_encode( wp_create_nonce( 'demo-license-controls-nonce' ) ) . ';';
+
+	wp_add_inline_script(
+		'demo-setting-scripts',
+		$variables,
+		'before'
+	);
+
+	...
+}
+add_action( 'admin_enqueue_scripts', 'demo_enqueue_project_scripts' );
+```
+
+### PHP Function
+
+Next, we need to write the PHP function that will actually handle the license activation/deactivation request to the store website. Before I dive into the particulars, here is what this function should roughly look like. I do recommend reviewing the EDD Software Licensing API [documentation](https://docs.easydigitaldownloads.com/article/384-software-licensing-api). The function below is based on the sample plugin that is provided by EDD when you purchase the Software Licensing add-on.
+
+```javascript
+function demo_license_controls() {
+
+	check_ajax_referer( 'demo-license-controls-nonce' );
+
+	$api_url    = 'https://www.demostore.com';
+	$item_name  = 'Demo Plugin';
+	$item_id    = 1234;
+	$edd_action = sanitize_text_field( $_POST&#91;'edd_action'] );
+        $license    = sanitize_text_field( $_POST&#91;'license'] );
+
+	// Data to send to the API
+	$api_params = array(
+		'edd_action' => $edd_action,
+		'license'    => $license,
+		'item_name'  => urlencode( $item_name ),
+		'item_id'    => BVP_ITEM_ID,
+		'url'        => home_url()
+	);
+
+	// Call the API
+	$response = wp_remote_post(
+		$api_url,
+		array(
+			'timeout'   => 15,
+			'sslverify' => false,
+			'body'      => $api_params
+		)
+	);
+
+	// Make sure there are no errors
+	if (
+		is_wp_error( $api_response ) ||
+		200 !== intval( wp_remote_retrieve_response_code( $api_response ) )
+	)
+		wp_die( __( 'There has been an error retrieving the license information from the server, perhaps you are no longer connected to the internet. Please contact support.', 'demo-text-domain' ) );
+	}
+
+	// There are no errors, so retrieve the response
+	echo wp_remote_retrieve_body( $response );
+
+	wp_die();
+}
+add_action( 'wp_ajax_demo_license_controls', 'demo_license_controls' );
+```
+
+The first thing I am doing in this function is validating the nonce. We do not want to proceed with this API call if there is no valid security token.
+
+The `$api_url` variable is the URL for the website with EDD Software Licensing running on it, i.e. the product store. The `$item_name` and `$item_id` refer to the product the user is attempting to activate. Refer to the [documentation](https://docs.easydigitaldownloads.com/article/384-software-licensing-api) on where to find the id. Note that these variables are hardcoded for demonstration purposes, but you will likely come up with a more elegant solution.
+
+Next, I am setting the `$edd_action` and `$license` key. These two variables come from the UI in React, and I will talk more about them later. Variables from JavaScript are passed to PHP via Ajax and are retrieved using the $_POST method in this example.
+
+With all the variables set, we make the API call using `wp_remote_post()` which performs an HTTP request using the POST method. Assuming there are no errors, we then retrieve the response.
+
+Note that there are other ways in PHP to make an HTTP request, but using all of the WordPress-specific functions makes debugging much easier, especially  `is_wp_error()` and `wp_die()`.
+
+The most important part of the code above is the last line. There are two actions that we could use here. `wp_ajax_(your action name)` only works for users that are logged in to your website. wp_ajax_nopriv_(your action name) is for users that are not logged in. Both can be used in tandem, but since license activation takes place in the admin area of the website, we just need `wp_ajax_(your action name)`.
+
+The `(your action name)` part of the action, or `demo_license_controls` in this example, will be used in the Ajax call on the React side.
+
+### React Function
+
+Finally, we need to make the Ajax call in React where the license activation UI "lives". First, a quick recap of the data flow we are attempting to create and what a user will actually be doing.
+
+1. The user will enter their license key into a text field and then click an "Activate" button.
+
+2. The license key value will then be passed to our PHP function via Ajax.
+
+3. The PHP function will make an API call to the store website to activate the license if it is activable.
+
+4. A response will be sent back with a success or failure message.
+
+5. We will then parse the response and display a message to the user about whether the activation was successful or not.
+
+Steps 1 and 5 are outside the scope of this post but are pretty straightforward. WordPress does have a number of built-in components, such as text inputs and buttons, that I encourage you to check out. I am leveraging them in my projects, and the [Developer Handbook](https://developer.wordpress.org/block-editor/components/) provides a good overview of each one.
+
+Step 2 is where we need to make our Ajax call. There are many different Ajax libraries that you could use, but I chose the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) since it is built-in to all modern browsers and I did not want to include another library in my project. The function should look something like the following:
+
+```javascript
+// Valid actions are activate_license, deactivate_license, get_version, check_license
+async function licenseControls( license = '', edd_action = 'activate_license' ) {
+	const response = await fetch( demoAjaxUrl, {
+		method: 'POST',
+		credentials: 'same-origin',
+		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		body: new URLSearchParams( {
+			_ajax_nonce: demoLicenseControlsNonce,
+			action: 'demo_license_controls',
+			edd_action: edd_action,
+			license: license,
+		} )
+	} );
+	return response.json();
+}
+```
+
+The function accepts two parameters, the license key, and the EDD action. This function can actually be used to activate a license, deactivate a license, check the status of a license, or get the current version number of the product, all based on the `edd_action` parameter.
+
+You will note that we are fetching from the `demoAjaxUrl`, which we enqueued with our scripts earlier in this post. We are also using the nonce, `demoLicenseControlsNonce`, as one of the parameters.
+
+Next, we have the `action` parameter set to `demo_license_controls`, which we set when adding our PHP function. And finally, we are passing the `license` and `edd_action`.
+
+Now when the user clicks the "Activate" button, your React app will call the above function, which will return a JSON response. If the activation is successful, the response will look something like:
+
+```javascript
+{
+    "success": true,
+    "license": "valid",
+    "item_id": 1234
+    "item_name": "Demo Plugin",
+    "license_limit": 0,
+    "site_count": 2,
+    "expires": "2021-06-30 23:59:59",
+    "activations_left": "unlimited",
+    "checksum": "<MD$ Checksum>",
+    "payment_id": 12345,
+    "customer_name": "John Doe",
+    "customer_email": "john@sample.org",
+    "price_id": "2"
+}
+```
+
+You can then use this data to provide a success notice to the user. EDD has [examples](https://docs.easydigitaldownloads.com/article/384-software-licensing-api) of other response options if, for example, the activation fails or you are using a different EDD action.
+
+## Summary
+
+The topics covered in this post are just the tip of the iceberg, but I hope it helps you overcome the CORS issue that I ran into when using the Software Licensing add-on for EDD. To simplify everything I wrote above into three bullet points:
+
+1. Create your license activation UI in React.
+
+2. Handle the actual license activation in a PHP function.
+
+3. Invoke the PHP function using Ajax from your React app.
+
+That's it, mission complete!

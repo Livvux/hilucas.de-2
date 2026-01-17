@@ -1,6 +1,6 @@
+import React, { ComponentPropsWithoutRef } from 'react';
 import type { MDXComponents } from 'mdx/types';
-import NextImage from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/components/ui/link';
 import { Notice } from '@/components/Notice';
 import { GitHubStats } from '@/components/GitHubStats';
 import { YouTube } from '@/components/YouTube';
@@ -8,41 +8,39 @@ import { Tweet } from '@/components/Tweet';
 import { Image } from '@/components/Image';
 import { CodeBlock } from '@/components/CodeBlock';
 
+type AnchorProps = ComponentPropsWithoutRef<'a'>;
+
 export function getMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    a: ({ href, children }) => {
-      const isExternal = href?.startsWith('http');
-      if (isExternal) {
+    a: ({ href, children, ...props }: AnchorProps) => {
+      const className =
+        'text-blue-700 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-500 font-normal no-underline transition-colors';
+      if (href?.startsWith('/')) {
         return (
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-2 hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
-          >
+          <Link href={href} className={className} {...props}>
+            {children}
+          </Link>
+        );
+      }
+      if (href?.startsWith('#')) {
+        return (
+          <a href={href} className={className} {...props}>
             {children}
           </a>
         );
       }
       return (
-        <Link
-          href={href ?? ''}
-          className="underline underline-offset-2 hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className}
+          {...props}
         >
           {children}
-        </Link>
+        </a>
       );
     },
-    img: ({ src, alt }) => (
-      <NextImage
-        src={src ?? ''}
-        alt={alt ?? ''}
-        width={800}
-        height={450}
-        className="rounded-lg my-6"
-        sizes="(max-width: 768px) 100vw, 800px"
-      />
-    ),
     // Override default code blocks with syntax highlighting
     // rehype-mdx-code-props passes meta string props directly to pre element
     pre: ({
