@@ -77,7 +77,7 @@ The `<Image>` component uses Next.js Image optimization. **Width and height are 
 
 ```mdx
 <Image
-  src="/images/posts/screenshot.png"
+  src="/images/blog/screenshot.png"
   alt="Description of the image"
   width={1024}
   height={768}
@@ -106,7 +106,7 @@ The `<Image>` component uses Next.js Image optimization. **Width and height are 
 **With caption:**
 ```mdx
 <Image
-  src="/images/posts/example-screenshot.png"
+  src="/images/blog/example-screenshot.png"
   alt="Screenshot"
   width={1024}
   height={768}
