@@ -88,7 +88,7 @@ export default async function PostPage({ params }: Props) {
       <article className="max-w-2xl mx-auto px-6 py-12">
         <header className="mb-12">
           <h1 className="text-3xl font-medium mb-2 text-balance">{post.meta.title}</h1>
-          <time dateTime={post.meta.date} className="text-muted-foreground">
+          <time dateTime={post.meta.date} className="text-muted-foreground text-sm">
             {date}
           </time>
         </header>
