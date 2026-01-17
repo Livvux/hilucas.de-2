@@ -20,7 +20,7 @@ export default function HomePage() {
           </p>
         </div>
         <div className="flex justify-center md:justify-end">
-          <Image src="/images/avatar.webp" alt="Nick Diego" width={128} height={128} className="rounded-full" />
+          <Image src="/images/avatar.png" alt="Nick Diego" width={128} height={128} className="rounded-full" />
         </div>
       </section>
 

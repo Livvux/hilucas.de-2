@@ -9,6 +9,10 @@ export async function GET(request: NextRequest) {
   const title = searchParams.get('title') || siteConfig.name;
   const subtitle = searchParams.get('subtitle') || siteConfig.description;
 
+  // Fetch avatar from the current origin (works in dev and prod)
+  const avatarUrl = new URL('/images/avatar.png', request.url);
+  const avatarData = await fetch(avatarUrl).then((res) => res.arrayBuffer());
+
   return new ImageResponse(
     (
       <div
@@ -83,22 +87,16 @@ export async function GET(request: NextRequest) {
             zIndex: 1,
           }}
         >
-          <div
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={avatarData as unknown as string}
+            width={48}
+            height={48}
             style={{
-              width: '48px',
-              height: '48px',
               borderRadius: '50%',
-              backgroundColor: '#404040',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '20px',
-              fontWeight: 600,
-              color: '#fafafa',
             }}
-          >
-            ND
-          </div>
+            alt=""
+          />
           <div
             style={{
               display: 'flex',

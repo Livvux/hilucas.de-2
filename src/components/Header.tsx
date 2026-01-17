@@ -10,7 +10,7 @@ export function Header() {
           className="flex items-center gap-4 hover:opacity-70 transition-opacity"
         >
           <Image
-            src="/images/avatar.webp"
+            src="/images/avatar.png"
             alt="Nick Diego"
             width={48}
             height={48}
