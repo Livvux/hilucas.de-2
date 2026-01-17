@@ -44,11 +44,11 @@ Here's what the final result looks like. You can try out the [Enable Linked Grou
 
 The Editor implementation followed a well-established process:
 
-- Register custom block attributes using the `[blocks.registerBlockType](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#blocks-registerblocktype)` filter.
+- Register custom block attributes using the [`blocks.registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#blocks-registerblocktype) filter.
 
-- Add UI elements to the block using the `[editor.BlockEdit](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#editor-blockedit)` filter.
+- Add UI elements to the block using the [`editor.BlockEdit`](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#editor-blockedit) filter.
 
-- Optionally, add Editor-specific properties to the block using the `[editor.BlockListBlock](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#editor-blocklistblock)` filter.
+- Optionally, add Editor-specific properties to the block using the [`editor.BlockListBlock`](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#editor-blocklistblock) filter.
 
 If you are unfamiliar with this approach, check out [How to extend a WordPress block](https://developer.wordpress.org/news/2024/08/15/how-to-extend-a-wordpress-block/) on the WordPress Developer Blog.
 
@@ -68,7 +68,7 @@ Overall, I'm quite pleased with the result. It feels like you are using Core fun
 
 I was the most concerned with accessibility on the front end, as this is not my area of expertise. After reading a few articles, notably [this one](https://css-tricks.com/block-links-the-search-for-a-perfect-solution/) on CSS Tricks and the resources listed at the end of that post, I decided on an approach similar to the one Apple uses on its [homepage](https://www.apple.com/).
 
-When a link is added to a Group block, the class `is-linked` is added to the block wrapper. Then, the chosen link is inserted dynamically as the first element of the block using the `[render_block_core/group](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#render_block_namespace-block)` filter. This was accomplished using a mix of regex and the HTML API ([code](https://github.com/ndiego/enable-linked-groups/blob/44ce44a7826a7cb3c2299fa64aec87659695c60f/enable-linked-groups.php#L99-L119)).
+When a link is added to a Group block, the class `is-linked` is added to the block wrapper. Then, the chosen link is inserted dynamically as the first element of the block using the [`render_block_core/group`](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#render_block_namespace-block) filter. This was accomplished using a mix of regex and the HTML API ([code](https://github.com/ndiego/enable-linked-groups/blob/44ce44a7826a7cb3c2299fa64aec87659695c60f/enable-linked-groups.php#L99-L119)).
 
 Here's an example of the front-end markup. You can see the link element with the class `wp-block-group__link` on line two.
 

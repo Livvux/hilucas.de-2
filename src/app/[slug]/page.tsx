@@ -87,13 +87,13 @@ export default async function PostPage({ params }: Props) {
       />
       <article className="max-w-2xl mx-auto px-6 py-12">
         <header className="mb-12">
-          <h1 className="text-3xl font-medium mb-2">{post.meta.title}</h1>
+          <h1 className="text-3xl font-medium mb-2 text-balance">{post.meta.title}</h1>
           <time dateTime={post.meta.date} className="text-muted-foreground">
             {date}
           </time>
         </header>
 
-        <div className="prose prose-neutral dark:prose-invert max-w-none">
+        <div>
           <MDXRemote
             source={post.content}
             components={getMDXComponents({})}

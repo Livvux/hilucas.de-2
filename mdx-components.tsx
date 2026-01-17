@@ -12,6 +12,54 @@ type AnchorProps = ComponentPropsWithoutRef<'a'>;
 
 export function getMDXComponents(components: MDXComponents): MDXComponents {
   return {
+    // Basic text elements
+    p: ({ children }) => (
+      <p className="text-foreground leading-relaxed mb-6">{children}</p>
+    ),
+    h1: ({ children, id }) => (
+      <h1 id={id} className="text-foreground text-3xl font-medium mt-10 mb-4 scroll-mt-20 text-balance" >
+        {children}
+      </h1>
+    ),
+    h2: ({ children, id }) => (
+      <h2 id={id} className="text-foreground text-2xl font-medium mt-10 mb-4 scroll-mt-20 text-balance" >
+        {children}
+      </h2>
+    ),
+    h3: ({ children, id }) => (
+      <h3 id={id} className="text-foreground text-xl font-medium mt-8 mb-3 scroll-mt-20 text-balance" >
+        {children}
+      </h3>
+    ),
+    h4: ({ children, id }) => (
+      <h4 id={id} className="text-foreground text-lg font-medium mt-6 mb-2 scroll-mt-20">
+        {children}
+      </h4>
+    ),
+    ul: ({ children }) => (
+      <ul className="list-disc pl-6 mb-6 space-y-2 text-foreground">{children}</ul>
+    ),
+    ol: ({ children }) => (
+      <ol className="list-decimal pl-6 mb-6 space-y-2 text-foreground">{children}</ol>
+    ),
+    li: ({ children }) => (
+      <li className="leading-relaxed">{children}</li>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 border-border pl-4 my-6 text-muted-foreground italic">
+        {children}
+      </blockquote>
+    ),
+    hr: () => <hr className="my-8 border-border" />,
+    strong: ({ children }) => (
+      <strong className="font-semibold text-foreground">{children}</strong>
+    ),
+    em: ({ children }) => <em>{children}</em>,
+    code: ({ children }) => (
+      <code className="text-foreground text-sm font-mono font-normal px-1.5 py-0.5 rounded bg-[oklch(0.93_0_0)] dark:bg-[oklch(0.25_0_0)]">
+        {children}
+      </code>
+    ),
     a: ({ href, children, ...props }: AnchorProps) => {
       const className =
         'text-blue-700 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-500 font-normal no-underline transition-colors';

@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";
 @source "../../mdx-components.tsx";
 
@@ -133,70 +132,31 @@
   }
 }
 
-/* Prose overrides for better dark mode */
-@layer components {
-  .prose {
-    @apply text-foreground/80;
-  }
+/* Inline code inside links */
+a code {
+  @apply text-blue-700 dark:text-blue-400;
+}
 
-  .prose a {
-    @apply text-foreground underline underline-offset-2 hover:text-foreground/70 transition-colors;
-  }
+a:hover code {
+  @apply text-blue-800 dark:text-blue-500;
+}
 
-  .prose strong {
-    @apply text-foreground;
-  }
+/* Heading anchors */
+.heading-anchor {
+  @apply no-underline;
+}
 
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4 {
-    @apply text-foreground;
-    text-wrap: balance;
-  }
+h2 .heading-anchor,
+h3 .heading-anchor,
+h4 .heading-anchor {
+  @apply relative;
+}
 
-  /* Scroll margin for anchor links */
-  .prose h2[id],
-  .prose h3[id],
-  .prose h4[id] {
-    scroll-margin-top: 5rem;
-  }
-
-  /* Inline code */
-  .prose code:not(pre code) {
-    @apply bg-muted text-foreground px-1.5 py-0.5 rounded text-sm font-mono;
-  }
-
-  /* Code blocks */
-  .prose pre {
-    @apply bg-muted overflow-x-auto rounded-lg p-4;
-  }
-
-  .prose pre code {
-    @apply bg-transparent p-0 text-sm;
-  }
-
-  .prose blockquote {
-    @apply border-border;
-  }
-
-  /* Heading anchors */
-  .prose .heading-anchor {
-    @apply no-underline;
-  }
-
-  .prose h2 .heading-anchor,
-  .prose h3 .heading-anchor,
-  .prose h4 .heading-anchor {
-    @apply relative;
-  }
-
-  .prose h2:hover .heading-anchor::before,
-  .prose h3:hover .heading-anchor::before,
-  .prose h4:hover .heading-anchor::before {
-    content: '#';
-    @apply absolute -left-6 text-muted-foreground;
-  }
+h2:hover .heading-anchor::before,
+h3:hover .heading-anchor::before,
+h4:hover .heading-anchor::before {
+  content: '#';
+  @apply absolute -left-6 text-muted-foreground;
 }
 
 /* Shiki code block styling */
