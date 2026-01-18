@@ -4,6 +4,7 @@ import { Link } from '@/components/ui/link';
 import { Notice } from '@/components/Notice';
 import { GitHubStats } from '@/components/GitHubStats';
 import { YouTube } from '@/components/YouTube';
+import { Video } from '@/components/Video';
 import { Tweet } from '@/components/Tweet';
 import { Image } from '@/components/Image';
 import { CodeBlock } from '@/components/CodeBlock';
@@ -136,6 +137,7 @@ export function getMDXComponents(components: MDXComponents): MDXComponents {
     Notice,
     GitHubStats,
     YouTube,
+    Video,
     Tweet,
     Image,
     CodeBlock,

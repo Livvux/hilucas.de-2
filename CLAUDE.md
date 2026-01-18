@@ -68,6 +68,7 @@ featuredImage: /path/to/image.jpg  # optional
 
 - `<CodeBlock>` - Syntax highlighted code with line numbers, copy button, collapsible
 - `<YouTube id="..." />` - YouTube embeds
+- `<Video id="..." />` - Cloudflare Stream video embeds
 - `<Image>` - Next.js optimized images with captions and size variants
 - `<GitHubStats repo="owner/repo" />` - GitHub repo stats
 
@@ -115,6 +116,36 @@ The `<Image>` component uses Next.js Image optimization. **Width and height are 
 ```
 
 **Getting image dimensions:** Use `sips -g pixelWidth -g pixelHeight path/to/image.png` on macOS to get dimensions.
+
+### Video Usage
+
+The `<Video>` component embeds videos hosted on Cloudflare Stream.
+
+```mdx
+<Video id="your-cloudflare-stream-video-id" />
+```
+
+**Available props:**
+- `id` (required) - Cloudflare Stream video ID
+- `title` - Accessible title (default: "Video")
+- `autoplay` - Auto-play video (default: false)
+- `loop` - Loop video (default: false)
+- `muted` - Mute audio (default: false)
+- `controls` - Show player controls (default: true)
+- `poster` - Custom poster/thumbnail URL
+- `start` - Start time in seconds
+
+**Example with options:**
+```mdx
+<Video
+  id="abc123def456"
+  title="Product demo"
+  muted
+  loop
+/>
+```
+
+**Uploading videos:** Upload videos to Cloudflare Stream via the Cloudflare dashboard. The video ID is shown in the video details after upload.
 
 ### CodeBlock Usage
 
