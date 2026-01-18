@@ -25,7 +25,7 @@ export async function GitHubStats({ repo }: GitHubStatsProps) {
         href={`https://github.com/${repo}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-4 py-2 border border-border rounded-lg hover:bg-accent transition-colors"
+        className="inline-flex items-center gap-2 px-4 py-2 border border-border rounded-md hover:bg-accent transition-colors"
       >
         <span className="font-medium font-mono text-sm">{repo}</span>
       </a>
@@ -37,7 +37,7 @@ export async function GitHubStats({ repo }: GitHubStatsProps) {
       href={`https://github.com/${repo}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-4 px-4 py-2 border border-border rounded-lg hover:bg-accent transition-colors"
+      className="inline-flex items-center gap-4 px-4 py-2 border border-border rounded-md hover:bg-accent transition-colors"
     >
       <span className="font-medium font-mono text-sm">{repo}</span>
       <span className="flex items-center gap-1 text-sm text-muted-foreground">

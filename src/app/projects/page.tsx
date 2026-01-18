@@ -50,7 +50,7 @@ export default function ProjectsPage() {
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="block p-6 border border-border rounded-lg hover:border-muted-foreground/50 transition-colors"
+            className="block p-6 border border-border rounded-md hover:border-muted-foreground/50 transition-colors"
           >
             <h2 className="font-medium mb-2">{project.name}</h2>
             <p className="text-sm text-muted-foreground">

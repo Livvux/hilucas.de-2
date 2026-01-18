@@ -47,7 +47,7 @@ export function Image({
           height={height}
           priority={priority}
           sizes={sizes}
-          className={`w-full h-auto rounded-lg ${bordered ? 'border border-border' : ''}`}
+          className={`w-full h-auto rounded-md ${bordered ? 'border border-border' : ''}`}
         />
       </div>
       {caption && (

@@ -15,7 +15,7 @@ export function PostCard({ post }: { post: PostMeta }) {
 
   return (
     <Link href={`/${post.slug}`} className="block">
-      <article className="rounded-lg border border-border p-6 transition-colors hover:bg-muted/50">
+      <article className="rounded-md border border-border p-6 transition-colors hover:bg-muted/50">
         <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
           <div
             className="flex items-center gap-1"

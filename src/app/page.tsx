@@ -41,7 +41,7 @@ export default function HomePage() {
         ) : (
           <p className="text-copy mb-8">
             No posts yet. Add MDX files to{' '}
-            <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+            <code className="text-sm bg-muted px-1.5 py-0.5 rounded-md">
               src/blog/
             </code>{' '}
             to get started.
