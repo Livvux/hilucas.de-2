@@ -26,7 +26,7 @@ export function ThemeToggle() {
         }`}
         aria-label="Light theme"
       >
-        <Sun />
+        <Sun aria-hidden="true" />
       </Button>
       <Button
         variant="ghost"
@@ -39,7 +39,7 @@ export function ThemeToggle() {
         }`}
         aria-label="System theme"
       >
-        <Monitor />
+        <Monitor aria-hidden="true" />
       </Button>
       <Button
         variant="ghost"
@@ -52,7 +52,7 @@ export function ThemeToggle() {
         }`}
         aria-label="Dark theme"
       >
-        <Moon />
+        <Moon aria-hidden="true" />
       </Button>
     </div>
   );

@@ -33,11 +33,11 @@ export async function GHRepoCard({ repo, title, description }: GHRepoCardProps) 
         {data && (
           <div className="flex items-center gap-4 text-sm text-muted-foreground shrink-0">
             <span className="flex items-center gap-1.5">
-              <Star className="w-4 h-4" />
+              <Star className="w-4 h-4" aria-hidden="true" />
               {data.stargazers_count?.toLocaleString() ?? 0}
             </span>
             <span className="flex items-center gap-1.5">
-              <GitFork className="w-4 h-4" />
+              <GitFork className="w-4 h-4" aria-hidden="true" />
               {data.forks_count?.toLocaleString() ?? 0}
             </span>
           </div>

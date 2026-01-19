@@ -51,11 +51,11 @@ export async function WPPluginCard({ slug, title, description }: WPPluginCardPro
         {data && (
           <div className="flex items-center gap-4 text-sm text-muted-foreground shrink-0">
             <span className="flex items-center gap-1.5">
-              <Star className="w-4 h-4" />
+              <Star className="w-4 h-4" aria-hidden="true" />
               {data.num_ratings?.toLocaleString() ?? 0}
             </span>
             <span className="flex items-center gap-1.5">
-              <Users className="w-4 h-4" />
+              <Users className="w-4 h-4" aria-hidden="true" />
               {formatInstalls(data.active_installs ?? 0)}
             </span>
           </div>

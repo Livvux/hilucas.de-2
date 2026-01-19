@@ -25,6 +25,7 @@ export function CategoryNav({ categories }: CategoryNavProps) {
           <span>Categories</span>
           <ChevronDown
             className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+            aria-hidden="true"
           />
         </button>
         {isOpen && (

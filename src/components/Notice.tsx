@@ -22,7 +22,7 @@ export function Notice({ type = 'note', children }: NoticeProps) {
 
   return (
     <Alert variant={type} className="my-6">
-      <Icon className="h-5 w-5" strokeWidth={1.5} />
+      <Icon className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
       <AlertDescription>{children}</AlertDescription>
     </Alert>
   );
