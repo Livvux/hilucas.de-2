@@ -6,14 +6,25 @@ Custom components available for use in MDX content.
 
 The `<Image>` component uses Next.js Image optimization. **Width and height are required** for proper aspect ratio and optimization.
 
+Images are colocated with blog posts in a folder structure:
+```
+src/blog/2024/my-post/
+├── index.mdx
+├── screenshot.png
+└── another-image.jpg
+```
+
+Reference images using relative paths:
 ```mdx
 <Image
-  src="/images/blog/screenshot.png"
+  src="./screenshot.png"
   alt="Description of the image"
   width={1024}
   height={768}
 />
 ```
+
+The `./` prefix is automatically resolved to the correct API route at build time.
 
 ### Props
 
@@ -42,7 +53,7 @@ The `<Image>` component uses Next.js Image optimization. **Width and height are 
 
 ```mdx
 <Image
-  src="/images/blog/example-screenshot.png"
+  src="./example-screenshot.png"
   alt="Screenshot"
   width={1024}
   height={768}

@@ -4,7 +4,20 @@ This guide covers writing blog posts and other content using MDX.
 
 ## Blog Posts
 
-Blog posts are MDX files in `src/blog/`. You can organize posts into year subfolders (e.g., `src/blog/2024/`, `src/blog/2025/`) for convenience—the folder structure is purely organizational and doesn't affect URLs.
+Blog posts are MDX files in `src/blog/`. Posts can be organized in two ways:
+
+1. **Simple posts** (no images): `src/blog/2024/my-post.mdx`
+2. **Posts with images** (folder structure): `src/blog/2024/my-post/index.mdx` with images alongside
+
+For posts with images, colocate the images in the same folder:
+```
+src/blog/2024/my-post/
+├── index.mdx
+├── screenshot.png
+└── diagram.jpg
+```
+
+Reference images using relative paths (e.g., `src="./screenshot.png"`).
 
 ### Frontmatter Schema
 

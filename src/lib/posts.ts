@@ -36,12 +36,44 @@ function getMdxFilesRecursively(dir: string): string[] {
   return files;
 }
 
+/**
+ * Extract slug from MDX file path.
+ * Handles both formats:
+ * - src/blog/2024/my-post.mdx -> "my-post"
+ * - src/blog/2024/my-post/index.mdx -> "my-post"
+ */
+function getSlugFromPath(fullPath: string): string {
+  const fileName = path.basename(fullPath, '.mdx');
+  if (fileName === 'index') {
+    // For folder-based posts, use the parent directory name as slug
+    return path.basename(path.dirname(fullPath));
+  }
+  return fileName;
+}
+
+/**
+ * Get the image base path for a post (used for relative image resolution).
+ * Returns the path segment after src/blog/ for folder-based posts.
+ * - src/blog/2024/my-post/index.mdx -> "2024/my-post"
+ * - src/blog/2024/my-post.mdx -> null (no colocated images)
+ */
+function getImageBasePath(fullPath: string): string | null {
+  const fileName = path.basename(fullPath, '.mdx');
+  if (fileName === 'index') {
+    // Extract path relative to blogDirectory
+    const dirPath = path.dirname(fullPath);
+    const relativePath = path.relative(blogDirectory, dirPath);
+    return relativePath;
+  }
+  return null;
+}
+
 export function getAllPosts(): PostMeta[] {
   const mdxFiles = getMdxFilesRecursively(blogDirectory);
 
   return mdxFiles
     .map((fullPath) => {
-      const slug = path.basename(fullPath, '.mdx');
+      const slug = getSlugFromPath(fullPath);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
       const stats = readingTime(content);
@@ -69,7 +101,7 @@ export function getAllPosts(): PostMeta[] {
 
 export function getPostBySlug(slug: string) {
   const mdxFiles = getMdxFilesRecursively(blogDirectory);
-  const fullPath = mdxFiles.find((file) => path.basename(file, '.mdx') === slug);
+  const fullPath = mdxFiles.find((file) => getSlugFromPath(file) === slug);
 
   if (!fullPath) {
     return null;
@@ -97,6 +129,7 @@ export function getPostBySlug(slug: string) {
       draft: data.draft ?? false,
     },
     content,
+    imageBasePath: getImageBasePath(fullPath),
   };
 }
 
@@ -116,7 +149,7 @@ export function getPostsByCategory(category: string): PostMeta[] {
 
 export function getPostMarkdown(slug: string): string | null {
   const mdxFiles = getMdxFilesRecursively(blogDirectory);
-  const fullPath = mdxFiles.find((file) => path.basename(file, '.mdx') === slug);
+  const fullPath = mdxFiles.find((file) => getSlugFromPath(file) === slug);
 
   if (!fullPath) {
     return null;
