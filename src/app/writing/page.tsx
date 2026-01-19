@@ -11,7 +11,7 @@ export default function WritingPage() {
   const categories = getAllCategories();
 
   return (
-    <div className="max-w-2xl mx-auto px-6 py-12">
+    <div className="max-w-2xl mx-auto px-6 py-6 md:py-12">
       <h1 className="text-3xl font-medium mb-12">Writing</h1>
 
       <CategoryNav categories={categories} />

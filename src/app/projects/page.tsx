@@ -35,7 +35,7 @@ const projects = [
 
 export default function ProjectsPage() {
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
+    <div className="max-w-6xl mx-auto px-6 py-6 md:py-12">
       <h1 className="text-3xl font-medium mb-8">Projects</h1>
 
       <p className="text-muted-foreground mb-12 max-w-2xl">
