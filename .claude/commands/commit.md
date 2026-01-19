@@ -38,3 +38,4 @@ EOF
 - Use present tense: "Add feature" not "Added feature"
 - Keep summary under 50 characters
 - One logical change per commit
+- Break work into individual commits as needed
