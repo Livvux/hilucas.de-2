@@ -21,7 +21,7 @@ export function ThemeToggle() {
         variant="ghost"
         size="icon"
         onClick={() => setTheme("light")}
-        className={`h-8 w-8 ${
+        className={`h-7 w-7 ${
           mounted && theme === "light"
             ? "text-foreground"
             : "text-muted-foreground hover:text-foreground"
@@ -34,7 +34,7 @@ export function ThemeToggle() {
         variant="ghost"
         size="icon"
         onClick={() => setTheme("system")}
-        className={`h-8 w-8 ${
+        className={`h-7 w-7 ${
           mounted && theme === "system"
             ? "text-foreground"
             : "text-muted-foreground hover:text-foreground"
@@ -47,7 +47,7 @@ export function ThemeToggle() {
         variant="ghost"
         size="icon"
         onClick={() => setTheme("dark")}
-        className={`h-8 w-8 ${
+        className={`h-7 w-7 ${
           mounted && theme === "dark"
             ? "text-foreground"
             : "text-muted-foreground hover:text-foreground"
