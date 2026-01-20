@@ -39,7 +39,7 @@ export function Footer() {
                     href="/speaking"
                     className="block py-1 text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    Talks
+                    Speaking
                   </Link>
                 </li>
               </ul>
