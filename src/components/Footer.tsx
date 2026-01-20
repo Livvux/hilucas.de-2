@@ -60,12 +60,12 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://bsky.app/profile/nickdiego.com"
+                  href="https://github.com/ndiego"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Bluesky
+                  GitHub
                 </a>
               </li>
               <li>
@@ -80,22 +80,22 @@ export function Footer() {
               </li>
               <li>
                 <a
+                  href="https://bsky.app/profile/nickdiego.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Bluesky
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://profiles.wordpress.org/ndiego"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   WordPress
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/ndiego"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  GitHub
                 </a>
               </li>
             </ul>
