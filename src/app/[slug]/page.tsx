@@ -63,17 +63,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
   if (!post) notFound();
 
-  const date = new Date(post.meta.date).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
+  const date = dateFormatter.format(new Date(post.meta.date));
 
   const jsonLd = generateArticleJsonLd({
     title: post.meta.title,
