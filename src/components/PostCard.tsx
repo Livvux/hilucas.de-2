@@ -35,7 +35,7 @@ export function PostCard({ post }: { post: PostMeta }) {
     >
       <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
         <div className="flex items-center">
-          {post.categories.map((cat, i) => (
+          {[...post.categories].sort((a, b) => a.localeCompare(b)).map((cat, i) => (
             <span key={cat}>
               <Link
                 href={`/writing/category/${getCategorySlug(cat)}`}
