@@ -73,7 +73,7 @@ sips -g pixelWidth -g pixelHeight path/to/image.png
 
 ## Video
 
-The `<Video>` component embeds videos hosted on Cloudflare Stream.
+The `<Video>` component embeds videos hosted on Cloudflare Stream. It automatically fetches video metadata to display the correct aspect ratio.
 
 ```mdx
 <Video id="your-cloudflare-stream-video-id" />
@@ -102,6 +102,20 @@ The `<Video>` component embeds videos hosted on Cloudflare Stream.
   loop
 />
 ```
+
+### Environment Variables
+
+To enable automatic aspect ratio detection, add these environment variables:
+
+```bash
+CLOUDFLARE_ACCOUNT_ID=your_account_id
+CLOUDFLARE_API_TOKEN=your_api_token
+```
+
+- **Account ID**: Found in the Cloudflare dashboard URL or under Account Home
+- **API Token**: Create a token with `Stream:Read` permission in the Cloudflare dashboard under My Profile → API Tokens
+
+If these variables aren't set, the component falls back to a 16:9 aspect ratio.
 
 ### Uploading Videos
 

@@ -1,3 +1,5 @@
+import { getVideoMetadata } from '@/lib/cloudflare';
+
 interface VideoProps {
   id: string;
   title?: string;
@@ -9,7 +11,7 @@ interface VideoProps {
   start?: number;
 }
 
-export function Video({
+export async function Video({
   id,
   title = 'Video',
   autoplay = false,
@@ -31,8 +33,20 @@ export function Video({
   const queryString = params.toString();
   const src = `https://iframe.videodelivery.net/${id}${queryString ? `?${queryString}` : ''}`;
 
+  // Fetch video metadata to get the correct aspect ratio
+  const metadata = await getVideoMetadata(id);
+
+  // Calculate padding-bottom percentage for aspect ratio
+  // Default to 16:9 (56.25%) if metadata unavailable
+  const aspectRatioPadding = metadata
+    ? (metadata.height / metadata.width) * 100
+    : 56.25;
+
   return (
-    <div className="relative aspect-video my-8 rounded-md overflow-hidden bg-muted">
+    <div
+      className="relative my-8 rounded-md overflow-hidden bg-muted"
+      style={{ paddingBottom: `${aspectRatioPadding}%` }}
+    >
       <iframe
         src={src}
         title={title}

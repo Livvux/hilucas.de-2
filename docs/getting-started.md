@@ -20,6 +20,21 @@ npm run start    # Start production server
 npm run lint     # Run ESLint
 ```
 
+## Environment Variables
+
+Copy `.env.example` to `.env.local` and configure as needed:
+
+```bash
+cp .env.example .env.local
+```
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `CLOUDFLARE_ACCOUNT_ID` | No | Cloudflare account ID for video aspect ratio detection |
+| `CLOUDFLARE_API_TOKEN` | No | API token with Stream:Read permission |
+
+See [components.md](./components.md#video) for details on setting up Cloudflare Stream.
+
 ## Project Structure
 
 ```
