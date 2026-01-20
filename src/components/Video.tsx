@@ -44,7 +44,7 @@ export async function Video({
 
   return (
     <div
-      className="relative my-8 rounded-md overflow-hidden bg-muted"
+      className="relative my-8 rounded-md overflow-hidden bg-muted border border-border"
       style={{ paddingBottom: `${aspectRatioPadding}%` }}
     >
       <iframe
