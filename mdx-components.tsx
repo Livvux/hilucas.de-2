@@ -7,12 +7,29 @@ import { WPPluginCard } from '@/components/WPPluginCard';
 import { YouTube } from '@/components/YouTube';
 import { Video } from '@/components/Video';
 import { Tweet } from '@/components/Tweet';
-import { Image } from '@/components/Image';
+import { Image, ImageProps } from '@/components/Image';
 import { CodeBlock } from '@/components/CodeBlock';
 
 type AnchorProps = ComponentPropsWithoutRef<'a'>;
 
-export function getMDXComponents(components: MDXComponents): MDXComponents {
+interface MDXComponentsOptions {
+  imageBasePath?: string | null;
+}
+
+export function getMDXComponents(
+  components: MDXComponents,
+  options: MDXComponentsOptions = {}
+): MDXComponents {
+  const { imageBasePath } = options;
+
+  // Wrapper to transform relative image paths
+  const ImageWithBasePath = (props: ImageProps) => {
+    let src = props.src;
+    if (src.startsWith('./') && imageBasePath) {
+      src = `/api/blog-images/${imageBasePath}/${src.slice(2)}`;
+    }
+    return <Image {...props} src={src} />;
+  };
   return {
     // Basic text elements
     p: ({ children }) => (
@@ -141,7 +158,7 @@ export function getMDXComponents(components: MDXComponents): MDXComponents {
     YouTube,
     Video,
     Tweet,
-    Image,
+    Image: ImageWithBasePath,
     CodeBlock,
     ...components,
   };

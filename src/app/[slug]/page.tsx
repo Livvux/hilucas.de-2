@@ -113,7 +113,7 @@ export default async function PostPage({ params }: Props) {
         <div>
           <MDXRemote
             source={post.content}
-            components={getMDXComponents({})}
+            components={getMDXComponents({}, { imageBasePath: post.imageBasePath })}
             options={{
               mdxOptions: {
                 remarkPlugins: [remarkGitHubAlerts],
