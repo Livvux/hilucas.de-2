@@ -30,11 +30,23 @@ export function TalkCard({ talk }: { talk: Talk }) {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if ((e.key === "Enter" || e.key === " ") && talkUrl) {
+      e.preventDefault();
+      window.open(talkUrl, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <article
       onClick={handleCardClick}
+      onKeyDown={handleKeyDown}
+      role={talkUrl ? "button" : undefined}
+      tabIndex={talkUrl ? 0 : undefined}
       className={`rounded-md border border-border p-6 transition-colors ${
-        talkUrl ? "hover:bg-muted/50 cursor-pointer" : ""
+        talkUrl
+          ? "hover:bg-muted/50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          : ""
       }`}
     >
       <div className="flex items-center justify-between gap-4 text-sm text-muted-foreground mb-2">
@@ -53,6 +65,7 @@ export function TalkCard({ talk }: { talk: Talk }) {
             href={talkUrl}
             target="_blank"
             rel="noopener noreferrer"
+            className="hover:text-muted-foreground transition-colors"
           >
             {talk.title}
           </a>

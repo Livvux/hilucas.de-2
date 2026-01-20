@@ -28,10 +28,20 @@ export function PostCard({ post }: { post: PostMeta }) {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      router.push(postUrl);
+    }
+  };
+
   return (
     <article
       onClick={handleCardClick}
-      className="space-y-4 rounded-md border border-border p-6 transition-colors hover:bg-muted/50 cursor-pointer"
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      className="space-y-4 rounded-md border border-border p-6 transition-colors hover:bg-muted/50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
         <div className="flex items-center">
