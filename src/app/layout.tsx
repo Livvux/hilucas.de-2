@@ -70,6 +70,16 @@ export default function RootLayout({
       style={{ colorScheme: "dark light" }}
     >
       <head>
+        <meta
+          name="theme-color"
+          media="(prefers-color-scheme: light)"
+          content="#ffffff"
+        />
+        <meta
+          name="theme-color"
+          media="(prefers-color-scheme: dark)"
+          content="#252525"
+        />
         <link rel="preconnect" href="https://www.youtube-nocookie.com" />
         <script
           type="application/ld+json"
