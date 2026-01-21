@@ -43,7 +43,7 @@ export async function WPPluginCard({
       rel="noopener noreferrer"
       className="group block not-prose my-6 p-6 border border-border rounded-md transition-colors hover:bg-muted/50"
     >
-      <div className="flex items-start justify-between gap-4 mb-3">
+      <div className="flex items-start justify-between gap-4 mb-4">
         <div className="flex items-center gap-2">
           <h3 className="font-semibold text-lg text-foreground">{title}</h3>
           {data?.version && (
@@ -65,7 +65,7 @@ export async function WPPluginCard({
           </div>
         )}
       </div>
-      <p className="text-foreground leading-relaxed">{description}</p>
+      <p className="text-sm text-copy leading-relaxed">{description}</p>
     </a>
   );
 }
