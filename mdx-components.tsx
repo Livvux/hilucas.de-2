@@ -24,12 +24,12 @@ export function getMDXComponents(
   const { imageBasePath } = options;
 
   // Wrapper to transform relative image paths
-  const ImageWithBasePath = (props: ImageProps) => {
-    let src = props.src;
+  const ImageWithBasePath = ({ src, alt, ...rest }: ImageProps) => {
+    let resolvedSrc = src;
     if (src.startsWith("./") && imageBasePath) {
-      src = `/api/blog-images/${imageBasePath}/${src.slice(2)}`;
+      resolvedSrc = `/api/blog-images/${imageBasePath}/${src.slice(2)}`;
     }
-    return <Image {...props} src={src} />;
+    return <Image src={resolvedSrc} alt={alt} {...rest} />;
   };
   return {
     // Basic text elements
