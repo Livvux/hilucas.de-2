@@ -9,6 +9,7 @@ import { Video } from "@/components/Video";
 import { Tweet } from "@/components/Tweet";
 import { Image, ImageProps } from "@/components/Image";
 import { CodeBlock } from "@/components/CodeBlock";
+import { LinkButton } from "@/components/LinkButton";
 
 type AnchorProps = ComponentPropsWithoutRef<"a">;
 
@@ -174,6 +175,7 @@ export function getMDXComponents(
     Tweet,
     Image: ImageWithBasePath,
     CodeBlock,
+    LinkButton,
     ...components,
   };
 }
