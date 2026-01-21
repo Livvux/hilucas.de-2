@@ -98,7 +98,7 @@ export function Header() {
                 onClick={() => setOpen(false)}
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                Talks
+                Speaking
               </Link>
             </nav>
 
