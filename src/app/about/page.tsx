@@ -10,12 +10,12 @@ export default function AboutPage() {
       </h1>
 
       <div className="space-y-6">
-        <p className="text-[var(--text-copy)] leading-relaxed">
+        <p className="text-copy leading-relaxed">
           I&apos;m Nick Diego—a Product Marketing Manager at Automattic,
           WordPress Core contributor, and hobby web developer.
         </p>
 
-        <p className="text-[var(--text-copy)] leading-relaxed">
+        <p className="text-copy leading-relaxed">
           This site is dedicated to my current WordPress projects and
           explorations into related technologies. Feel free to have a look
           around and reach out if you&apos;d like to connect.
@@ -25,7 +25,7 @@ export default function AboutPage() {
           What I do
         </h2>
 
-        <p className="text-[var(--text-copy)] leading-relaxed">
+        <p className="text-copy leading-relaxed">
           At Automattic, I work on developer tools and help communicate the
           value of WordPress to developers around the world. I&apos;m also an
           active contributor to WordPress Core, focusing on the block editor and
@@ -36,7 +36,7 @@ export default function AboutPage() {
           Projects
         </h2>
 
-        <p className="text-[var(--text-copy)] leading-relaxed">
+        <p className="text-copy leading-relaxed">
           I maintain several open-source WordPress plugins, including Block
           Visibility and the Icon Block, both of which have reached 30,000+
           active users.

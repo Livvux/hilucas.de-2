@@ -34,7 +34,7 @@ export function getMDXComponents(
   return {
     // Basic text elements
     p: ({ children }) => (
-      <p className="text-[var(--text-copy)] leading-relaxed mb-6">{children}</p>
+      <p className="text-copy leading-relaxed mb-6">{children}</p>
     ),
     h1: ({ children, id }) => (
       <h1
@@ -69,12 +69,12 @@ export function getMDXComponents(
       </h4>
     ),
     ul: ({ children }) => (
-      <ul className="list-disc pl-6 mb-6 space-y-2 text-[var(--text-copy)]">
+      <ul className="list-disc pl-6 mb-6 space-y-2 text-copy">
         {children}
       </ul>
     ),
     ol: ({ children }) => (
-      <ol className="list-decimal pl-6 mb-6 space-y-2 text-[var(--text-copy)]">
+      <ol className="list-decimal pl-6 mb-6 space-y-2 text-copy">
         {children}
       </ol>
     ),
