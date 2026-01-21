@@ -147,13 +147,13 @@ export default async function PostPage({ params }: Props) {
         </div>
 
         {post.meta.categories.length > 0 && (
-          <footer className="mt-12 pt-8 border-t border-border">
+          <footer className="mt-12">
             <div className="flex flex-wrap gap-2">
               {post.meta.categories.map((category: string) => (
                 <Link
                   key={category}
                   href={`/writing/category/${getCategorySlug(category)}`}
-                  className="px-4 py-2 text-sm border border-border rounded-full text-muted-foreground hover:bg-muted/50 transition-colors"
+                  className="px-3 py-1.5 text-sm border border-border rounded-full text-foreground hover:bg-neutral-50 dark:hover:bg-muted/50 transition-colors"
                 >
                   {category}
                 </Link>

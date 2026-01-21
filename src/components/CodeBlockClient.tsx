@@ -23,7 +23,7 @@ function CopyButton({
           variant="ghost"
           size="icon"
           onClick={onCopy}
-          className="h-8 w-8 text-muted-foreground bg-card opacity-90 hover:opacity-100"
+          className="h-8 w-8 text-muted-foreground bg-neutral-50 dark:bg-card opacity-90 hover:opacity-100"
           aria-label={copied ? "Copied to clipboard" : "Copy code"}
         >
           <span className="relative h-4 w-4">
@@ -62,7 +62,7 @@ function ExpandButton({
           variant="ghost"
           size="icon"
           onClick={onToggle}
-          className="h-8 w-8 text-muted-foreground bg-card opacity-90 hover:opacity-100"
+          className="h-8 w-8 text-muted-foreground bg-neutral-50 dark:bg-card opacity-90 hover:opacity-100"
           aria-label={isExpanded ? "Collapse code" : "Expand code"}
           aria-expanded={isExpanded}
         >
@@ -115,7 +115,7 @@ export function CodeBlockClient({
   const collapsedHeight = maxLines ? `${maxLines * 1.5 + 2}rem` : undefined;
 
   return (
-    <div className="code-block relative my-6 rounded-md overflow-hidden border border-border">
+    <div className="code-block relative my-6 rounded-md overflow-hidden bg-neutral-50 dark:bg-card border border-border">
       {filename && (
         <div className="flex items-center justify-between px-4 py-2 bg-card border-b border-border">
           <span className="text-sm text-muted-foreground font-mono">
@@ -127,7 +127,7 @@ export function CodeBlockClient({
         </div>
       )}
 
-      <div className="relative bg-card">
+      <div className="relative">
         {!filename && (
           <div className="absolute top-2 right-2 z-10">
             <CopyButton copied={copied} onCopy={handleCopy} />

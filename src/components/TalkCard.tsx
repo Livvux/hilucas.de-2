@@ -65,7 +65,6 @@ export function TalkCard({ talk }: { talk: Talk }) {
             href={talkUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-muted-foreground transition-colors"
           >
             {talk.title}
           </a>

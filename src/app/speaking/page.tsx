@@ -29,20 +29,14 @@ export default function SpeakingPage() {
       <h1 className="text-3xl font-medium mb-8">Speaking</h1>
 
       <p className="text-muted-foreground mb-12">
-        Conference talks, live streams, podcasts, and presentations about
-        WordPress development, the block editor, and related topics.
+        Past conference talks, live streams, podcasts, and presentations.
       </p>
 
-      <div className="space-y-12">
+      <div className="space-y-16">
         {years.map((year) => (
           <section key={year}>
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-xl font-medium">{year}</h2>
-              <span className="text-sm text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-                {talksByYear.get(year)!.length}
-              </span>
-            </div>
-            <div className="space-y-6">
+            <h2 className="text-xl font-medium mb-8">{year}</h2>
+            <div className="space-y-8">
               {talksByYear.get(year)!.map((talk) => (
                 <TalkCard key={`${talk.title}-${talk.date}`} talk={talk} />
               ))}

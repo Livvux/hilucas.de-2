@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="mt-8 md:mt-16">
       <div className="max-w-2xl mx-auto px-6 py-6 md:py-12">
         <div className="flex justify-between items-start gap-8 mb-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12">
+          <div className="grid grid-cols-2 gap-8 md:gap-12">
             <div>
               <h3 className="font-medium mb-4">Explore</h3>
               <ul className="text-sm">

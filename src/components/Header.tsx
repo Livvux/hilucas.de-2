@@ -15,7 +15,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="py-6 md:py-8 mb-2 md:mb-8">
+    <header className="py-6 md:py-10 mb-2 md:mb-8">
       <div className="flex items-center justify-between max-w-2xl mx-auto px-6">
         <Link
           href="/"
