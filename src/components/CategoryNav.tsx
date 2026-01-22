@@ -40,7 +40,7 @@ export function CategoryNav({ categories, desktopSidebar }: CategoryNavProps) {
           <Link
             key={cat}
             href={`/writing/category/${getCategorySlug(cat)}`}
-            className="px-3 py-1.5 text-sm border border-border rounded-full text-muted-foreground hover:bg-muted/50 transition-colors"
+            className="px-3 py-1.5 text-sm border border-border rounded-full text-foreground hover:bg-neutral-50 dark:hover:bg-muted/50 transition-colors"
           >
             {cat}
           </Link>
