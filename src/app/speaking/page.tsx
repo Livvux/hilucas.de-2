@@ -52,7 +52,7 @@ export default function SpeakingPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-6 md:py-12">
-      <h1 className="text-3xl font-medium mb-8">Speaking</h1>
+      <h1 className="text-3xl font-medium mb-4">Speaking</h1>
 
       <p className="text-muted-foreground mb-12">
         Past conference talks, live streams, podcasts, and presentations.
@@ -61,7 +61,7 @@ export default function SpeakingPage() {
       <div className="space-y-16">
         {years.map((year) => (
           <section key={year}>
-            <h2 className="text-xl font-medium mb-8">{year}</h2>
+            <h2 className="text-2xl font-medium mb-6">{year}</h2>
             <div className="space-y-8">
               {talksByYear.get(year)!.map((talk) => (
                 <TalkCard key={`${talk.title}-${talk.date}`} talk={talk} />

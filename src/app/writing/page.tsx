@@ -40,7 +40,7 @@ export default function WritingPage() {
     <div className="relative">
       {/* Main content - centered */}
       <div className="max-w-2xl mx-auto px-6 py-6 md:py-12">
-        <h1 className="text-3xl font-medium mb-12">Writing</h1>
+        <h1 className="text-3xl font-medium mb-6">Writing</h1>
 
         <CategoryNav categories={categories} />
 

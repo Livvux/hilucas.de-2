@@ -7,9 +7,8 @@ export default function HomePage() {
   const posts = getAllPosts().slice(0, 3);
 
   return (
-    <div className="max-w-2xl mx-auto px-6 py-6 md:py-12">
-      {/* Hero */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+    <div className="max-w-2xl mx-auto px-6 py-6 md:py-12 space-y-24">
+      <section className="flex flex-col sm:flex-row gap-8 items-center">
         <div>
           <h1 className="text-4xl font-medium mb-4">Hi there</h1>
           <p className="text-copy leading-relaxed">
@@ -19,27 +18,22 @@ export default function HomePage() {
             related technologies. Have a look around.
           </p>
         </div>
-        <div className="flex justify-center md:justify-end">
+        <div className="flex hidden sm:block flex-shrink-0">
           <Image
             src="/images/avatar.png"
             alt="Nick Diego"
-            width={128}
-            height={128}
+            width={156}
+            height={156}
             className="rounded-full"
           />
         </div>
       </section>
 
-      {/* Recent Posts */}
       <section>
-        <h2 className="text-2xl font-medium mb-4">Posts</h2>
-        <p className="text-copy mb-8">
-          Everything from WordPress tutorials and AI experiments to web
-          development resources and personal updates.
-        </p>
+        <h2 className="text-2xl font-medium mb-6">Latest posts</h2>
 
         {posts.length > 0 ? (
-          <div className="space-y-6 mb-8">
+          <div className="space-y-8 mb-8">
             {posts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
