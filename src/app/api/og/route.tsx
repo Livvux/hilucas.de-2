@@ -26,7 +26,6 @@ export async function GET(request: NextRequest) {
         padding: "80px",
       }}
     >
-      {/* Subtle gradient overlay */}
       <div
         style={{
           position: "absolute",
@@ -39,7 +38,6 @@ export async function GET(request: NextRequest) {
         }}
       />
 
-      {/* Content */}
       <div
         style={{
           display: "flex",
@@ -77,7 +75,6 @@ export async function GET(request: NextRequest) {
         )}
       </div>
 
-      {/* Author info */}
       <div
         style={{
           display: "flex",
