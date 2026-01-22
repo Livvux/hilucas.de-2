@@ -95,7 +95,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased min-h-screen flex flex-col">
+      <body className="font-sans antialiased flex flex-col">
         <Providers>
           <a
             href="#main"
