@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { WPPluginStat } from "@/components/WPPluginStat";
+import { Separator } from "@/components/ui/separator";
 
 const description =
   "Open-source WordPress plugins and tools including Block Visibility, Icon Block, and more.";
@@ -60,32 +62,52 @@ const projects = [
   },
 ];
 
+const pluginSlugs = [
+  "block-visibility",
+  "icon-block",
+  "social-sharing-block",
+  "genesis-featured-page-advanced",
+  "genesis-columns-advanced",
+];
+
 export default function ProjectsPage() {
   return (
-    <div className="max-w-6xl mx-auto px-6 py-6 md:py-12">
+    <div className="max-w-2xl mx-auto px-6 py-6 md:py-12">
       <h1 className="text-3xl font-medium mb-8">Projects</h1>
 
-      <p className="text-muted-foreground mb-12 max-w-2xl">
+      <p className="text-copy mb-12">
         A collection of open-source WordPress plugins and tools I&apos;ve built
         and maintain.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project) => (
-          <a
-            key={project.name}
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block p-6 border border-border rounded-md hover:border-muted-foreground/50 transition-colors"
-          >
-            <h2 className="font-medium mb-2">{project.name}</h2>
-            <p className="text-sm text-muted-foreground">
-              {project.description}
-            </p>
-          </a>
-        ))}
-      </div>
+      <section className="mb-12">
+        <h3 className="text-lg font-medium mb-6">WordPress.org stats</h3>
+        <div className="space-y-2">
+          <WPPluginStat slugs={pluginSlugs} stat="plugins" />
+          <Separator />
+          <WPPluginStat slugs={pluginSlugs} stat="active_installs" />
+          <Separator />
+          <WPPluginStat slugs={pluginSlugs} stat="downloads" />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-xl font-medium mb-6">All Projects</h2>
+        <div className="space-y-4">
+          {projects.map((project) => (
+            <a
+              key={project.name}
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block p-6 border border-border rounded-md hover:border-muted-foreground/50 transition-colors"
+            >
+              <h3 className="font-medium mb-2">{project.name}</h3>
+              <p className="text-sm text-copy">{project.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
