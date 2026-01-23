@@ -46,7 +46,7 @@ export default function WritingPage() {
 
         <CategoryNav categories={categories} />
 
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {posts.length > 0 ? (
             posts.map((post) => <PostCard key={post.slug} post={post} />)
           ) : (

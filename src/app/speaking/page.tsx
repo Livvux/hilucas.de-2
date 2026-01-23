@@ -62,7 +62,7 @@ export default function SpeakingPage() {
         {years.map((year) => (
           <section key={year}>
             <h2 className="text-2xl font-medium mb-6">{year}</h2>
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {talksByYear.get(year)!.map((talk) => (
                 <TalkCard key={`${talk.title}-${talk.date}`} talk={talk} />
               ))}

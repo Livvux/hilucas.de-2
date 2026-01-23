@@ -33,7 +33,7 @@ export default function HomePage() {
         <h2 className="text-2xl font-medium mb-6">Latest</h2>
 
         {posts.length > 0 ? (
-          <div className="space-y-8 mb-8">
+          <div className="space-y-6 sm:space-y-8 mb-8">
             {posts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
