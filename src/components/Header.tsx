@@ -73,7 +73,9 @@ export function Header() {
           />
           <SheetContent side="right">
             <SheetTitle className="text-base font-medium">
-              Nick Diego
+              <Link href="/" onClick={() => setOpen(false)}>
+                Nick Diego
+              </Link>
             </SheetTitle>
             <nav className="flex flex-col gap-2 mt-8">
               <Link
