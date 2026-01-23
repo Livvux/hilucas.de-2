@@ -42,30 +42,19 @@ export default function AboutPage() {
 
         <p className="text-copy leading-relaxed">
           I&apos;m a Product Marketing Manager at Automattic as well as a
-          WordPress Core contributor, plugin developer, and retired hospitality
+          WordPress Core contributor, developer, and "retired" hospitality
           marketer. I currently live in Minneapolis, Minnesota, with my wife,
           our dog Willie, and many rescued cats.
         </p>
 
         <p className="text-copy leading-relaxed">
-          This website is primarily dedicated to my personal web development
-          endeavors. It serves as a place to share my current projects, code
-          snippets, tutorials on WordPress plugin development, and anything else
-          that might be relevant.
+          Here I share my web development projects, AI workflows, code snippets, WordPress
+          tutorials, and whatever else I&apos;m working on.
         </p>
 
         <p className="text-copy leading-relaxed">
-          If you are looking for more information on my WordPress plugins, head
-          over to the <Link href="/projects">projects</Link> page. I am
-          currently working on{" "}
-          <Link href="https://wordpress.org/plugins/block-visibility/">
-            Block Visibility
-          </Link>
-          , a plugin that allows you to dynamically control the visibility of
-          any block in the WordPress editor.
+          For more on my WordPress plugins, check out the <Link href="/projects">projects</Link> page. You can also reach me at <Link href="https://x.com/nickmdiego">@nickmdiego</Link> or via the social channels below.
         </p>
-
-        <p className="text-copy leading-relaxed">Thanks for stopping by!</p>
       </div>
     </div>
   );
