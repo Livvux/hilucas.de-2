@@ -23,7 +23,7 @@ export function PostCard({ post }: { post: PostMeta }) {
 
       <div className="relative z-10 space-y-4 pointer-events-none">
         <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
-          <div className="flex items-center">
+          <div className="flex items-center hidden sm:flex">
             {post.categories.map((cat, i) => (
               <span key={cat}>
                 <Link
