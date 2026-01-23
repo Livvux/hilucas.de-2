@@ -37,15 +37,23 @@ export function TalkCard({ talk }: { talk: Talk }) {
     }
   };
 
+  const featuredStyles = talk.featured
+    ? "border-blue-200 bg-blue-50/70 dark:border-blue-900 dark:bg-blue-950/40"
+    : "border-border";
+
+  const hoverStyles = talk.featured
+    ? "hover:bg-blue-100/70 dark:hover:bg-blue-950/60"
+    : "hover:bg-muted/50";
+
   return (
     <article
       onClick={handleCardClick}
       onKeyDown={handleKeyDown}
       role={talkUrl ? "button" : undefined}
       tabIndex={talkUrl ? 0 : undefined}
-      className={`rounded-md border border-border p-6 transition-colors ${
+      className={`rounded-md border p-6 transition-colors ${featuredStyles} ${
         talkUrl
-          ? "hover:bg-muted/50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          ? `${hoverStyles} cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2`
           : ""
       }`}
     >
