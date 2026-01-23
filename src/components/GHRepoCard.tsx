@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { Star, GitFork } from "lucide-react";
 
 interface GHRepoCardProps {
@@ -6,17 +7,29 @@ interface GHRepoCardProps {
   description: string;
 }
 
-async function getRepoStats(repo: string) {
-  try {
-    const res = await fetch(`https://api.github.com/repos/${repo}`, {
-      next: { revalidate: 3600 },
-    });
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
-}
+const getRepoStats = unstable_cache(
+  async (repo: string) => {
+    try {
+      const headers: HeadersInit = {
+        Accept: "application/vnd.github.v3+json",
+      };
+
+      if (process.env.GITHUB_TOKEN) {
+        headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+      }
+
+      const res = await fetch(`https://api.github.com/repos/${repo}`, {
+        headers,
+      });
+      if (!res.ok) return null;
+      return res.json();
+    } catch {
+      return null;
+    }
+  },
+  ["github-repo-stats"],
+  { revalidate: 86400 }
+);
 
 export async function GHRepoCard({
   repo,
