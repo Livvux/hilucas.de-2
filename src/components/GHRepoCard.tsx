@@ -32,7 +32,7 @@ export async function GHRepoCard({
       rel="noopener noreferrer"
       className="group block not-prose my-6 px-6 pt-5 pb-6 border border-border rounded-md transition-colors hover:bg-muted/50"
     >
-      <div className="flex items-center justify-between gap-4 mb-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-4 mb-4">
         <h3 className="font-semibold text-lg text-foreground">{title}</h3>
         {data && (
           <div className="flex items-center gap-4 text-sm text-muted-foreground shrink-0 tabular-nums">

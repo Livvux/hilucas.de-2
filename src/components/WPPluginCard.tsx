@@ -20,13 +20,7 @@ async function getPluginStats(slug: string) {
 }
 
 function formatInstalls(num: number): string {
-  if (num >= 1000000) {
-    return `${(num / 1000000).toFixed(num >= 10000000 ? 0 : 1)}M+`;
-  }
-  if (num >= 1000) {
-    return `${(num / 1000).toFixed(num >= 10000 ? 0 : 1)}k+`;
-  }
-  return `${num}+`;
+  return `${num.toLocaleString()}+`;
 }
 
 export async function WPPluginCard({
@@ -43,7 +37,7 @@ export async function WPPluginCard({
       rel="noopener noreferrer"
       className="group block not-prose my-6 px-6 pt-5 pb-6 border border-border rounded-md transition-colors hover:bg-muted/50"
     >
-      <div className="flex items-center justify-between gap-4 mb-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-4 mb-4">
         <div className="flex items-center gap-2">
           <h3 className="font-semibold text-lg text-foreground">{title}</h3>
           {data?.version && (
