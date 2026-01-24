@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        justifyContent: "flex-end",
+        justifyContent: "flex-start",
         backgroundColor: "#0a0a0a",
         padding: "80px",
       }}
@@ -53,8 +53,54 @@ export async function GET(request: NextRequest) {
       <div
         style={{
           display: "flex",
+          alignItems: "center",
+          gap: "20px",
+          zIndex: 1,
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={avatarData as unknown as string}
+          width={72}
+          height={72}
+          style={{
+            borderRadius: "50%",
+          }}
+          alt=""
+        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "2px",
+          }}
+        >
+          <span
+            style={{
+              fontSize: "24px",
+              fontWeight: 500,
+              color: "#fafafa",
+            }}
+          >
+            {siteConfig.author.name}
+          </span>
+          <span
+            style={{
+              fontSize: "18px",
+              color: "#737373",
+            }}
+          >
+            nickdiego.com
+          </span>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
           flexDirection: "column",
           gap: "24px",
+          marginTop: "auto",
           zIndex: 1,
         }}
       >
@@ -85,51 +131,6 @@ export async function GET(request: NextRequest) {
               : subtitle}
           </p>
         )}
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "16px",
-          marginTop: "48px",
-          zIndex: 1,
-        }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={avatarData as unknown as string}
-          width={48}
-          height={48}
-          style={{
-            borderRadius: "50%",
-          }}
-          alt=""
-        />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <span
-            style={{
-              fontSize: "24px",
-              fontWeight: 500,
-              color: "#fafafa",
-            }}
-          >
-            {siteConfig.author.name}
-          </span>
-          <span
-            style={{
-              fontSize: "18px",
-              color: "#737373",
-            }}
-          >
-            nickdiego.com
-          </span>
-        </div>
       </div>
     </div>,
     {
