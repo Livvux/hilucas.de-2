@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Providers } from "@/components/Providers";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { Providers } from "@/components/providers";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 import { siteConfig } from "@/lib/site";
 import { generateWebsiteJsonLd, generatePersonJsonLd } from "@/lib/metadata";
 import "./globals.css";

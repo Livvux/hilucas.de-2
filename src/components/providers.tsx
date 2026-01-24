@@ -2,7 +2,7 @@
 
 import { ThemeProvider } from "next-themes";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ScrollToTop } from "@/components/ScrollToTop";
+import { ScrollToTop } from "@/components/scroll-to-top";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (

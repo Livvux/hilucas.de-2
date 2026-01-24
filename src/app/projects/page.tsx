@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { WPPluginStat } from "@/components/WPPluginStat";
-import { WPPluginCard } from "@/components/WPPluginCard";
-import { GHRepoCard } from "@/components/GHRepoCard";
+import { WPPluginStat } from "@/components/wp-plugin-stat";
+import { WPPluginCard } from "@/components/wp-plugin-card";
+import { GHRepoCard } from "@/components/gh-repo-card";
 import { Link } from "@/components/ui/link";
 import { Separator } from "@/components/ui/separator";
 

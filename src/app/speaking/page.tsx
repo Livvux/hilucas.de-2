@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { talks, Talk } from "@/data/talks";
-import { TalkCard } from "@/components/TalkCard";
+import { TalkCard } from "@/components/talk-card";
 
 const description =
   "Conference talks, live streams, podcasts, and presentations on WordPress development.";

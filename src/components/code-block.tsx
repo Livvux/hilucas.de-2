@@ -1,5 +1,5 @@
 import { highlightCode } from "@/lib/shiki";
-import { CodeBlockClient } from "./CodeBlockClient";
+import { CodeBlockClient } from "./code-block-client";
 
 interface CodeBlockProps {
   children?: string;

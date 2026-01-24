@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getAllPosts, getAllCategories } from "@/lib/posts";
-import { PostCard } from "@/components/PostCard";
-import { CategoryNav } from "@/components/CategoryNav";
+import { PostCard } from "@/components/post-card";
+import { CategoryNav } from "@/components/category-nav";
 
 const description =
   "Articles and tutorials on WordPress development, the block editor, and building for the web.";

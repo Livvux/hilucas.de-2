@@ -1,15 +1,15 @@
 import React, { ComponentPropsWithoutRef } from "react";
 import type { MDXComponents } from "mdx/types";
 import { Link } from "@/components/ui/link";
-import { Notice } from "@/components/Notice";
-import { GHRepoCard } from "@/components/GHRepoCard";
-import { WPPluginCard } from "@/components/WPPluginCard";
-import { YouTube } from "@/components/YouTube";
-import { Video } from "@/components/Video";
-import { Tweet } from "@/components/Tweet";
-import { Image, ImageProps } from "@/components/Image";
-import { CodeBlock } from "@/components/CodeBlock";
-import { LinkButton } from "@/components/LinkButton";
+import { Notice } from "@/components/notice";
+import { GHRepoCard } from "@/components/gh-repo-card";
+import { WPPluginCard } from "@/components/wp-plugin-card";
+import { YouTube } from "@/components/youtube";
+import { Video } from "@/components/video";
+import { Tweet } from "@/components/tweet";
+import { Image, ImageProps } from "@/components/image";
+import { CodeBlock } from "@/components/code-block";
+import { LinkButton } from "@/components/link-button";
 
 type AnchorProps = ComponentPropsWithoutRef<"a">;
 
