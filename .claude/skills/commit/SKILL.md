@@ -22,11 +22,11 @@ Arguments can be combined in any order:
 2. Run `git diff --stat` to see a summary of changes
 3. Run `git log -3 --oneline` to see recent commit style
 4. Determine which files to stage:
-   - If argument includes `all`: stage all modified and untracked files
+   - If argument includes `all`: commit all pending changes, but group them into logical commits
    - Otherwise: identify only files related to the current conversation's work
-5. Stage the appropriate files with `git add`
-6. Create a commit with a descriptive message following the repo's style
-7. If argument includes `push`: run `git push`
+5. Group related changes and create separate commits for each logical unit
+6. For each commit: stage the files with `git add`, then commit with a descriptive message
+7. If argument includes `push`: run `git push` after all commits are complete
 
 ## Commit message format
 
@@ -46,5 +46,5 @@ EOF
 
 - Use present tense: "Add feature" not "Added feature"
 - Keep summary under 50 characters
-- One logical change per commit
-- When using `all`, consider breaking into multiple commits if changes are unrelated
+- One logical change per commit — never lump unrelated changes together
+- With `all`: always break changes into separate logical commits (e.g., separate commits for a component fix vs. README updates)
