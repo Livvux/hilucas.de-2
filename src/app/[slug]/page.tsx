@@ -12,6 +12,7 @@ import { getMDXComponents } from "../../../mdx-components";
 import { siteConfig } from "@/lib/site";
 import { generateArticleJsonLd } from "@/lib/metadata";
 import { getCategorySlug } from "@/lib/categories";
+import { dateFormatter } from "@/lib/utils";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -62,12 +63,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
   };
 }
-
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  day: "numeric",
-  year: "numeric",
-});
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;

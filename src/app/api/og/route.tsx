@@ -4,14 +4,26 @@ import { siteConfig } from "@/lib/site";
 
 export const runtime = "edge";
 
+// Module-level cache for avatar data (persists across warm edge invocations)
+let cachedAvatarData: ArrayBuffer | null = null;
+
+async function getAvatarData(baseUrl: string): Promise<ArrayBuffer> {
+  if (cachedAvatarData) {
+    return cachedAvatarData;
+  }
+  const avatarUrl = new URL("/images/avatar.png", baseUrl);
+  const data = await fetch(avatarUrl).then((res) => res.arrayBuffer());
+  cachedAvatarData = data;
+  return data;
+}
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const title = searchParams.get("title") || siteConfig.name;
   const subtitle = searchParams.get("subtitle") || siteConfig.description;
 
-  // Fetch avatar from the current origin (works in dev and prod)
-  const avatarUrl = new URL("/images/avatar.png", request.url);
-  const avatarData = await fetch(avatarUrl).then((res) => res.arrayBuffer());
+  // Fetch avatar with caching for warm edge instances
+  const avatarData = await getAvatarData(request.url);
 
   return new ImageResponse(
     <div

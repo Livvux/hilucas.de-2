@@ -18,7 +18,7 @@ export interface PostMeta {
   draft?: boolean;
 }
 
-function getMdxFilesRecursively(dir: string): string[] {
+function scanDirectory(dir: string): string[] {
   if (!fs.existsSync(dir)) {
     return [];
   }
@@ -29,7 +29,7 @@ function getMdxFilesRecursively(dir: string): string[] {
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      files.push(...getMdxFilesRecursively(fullPath));
+      files.push(...scanDirectory(fullPath));
     } else if (entry.name.endsWith(".mdx")) {
       files.push(fullPath);
     }
@@ -37,6 +37,11 @@ function getMdxFilesRecursively(dir: string): string[] {
 
   return files;
 }
+
+// Cached per-request to avoid repeated file system scans
+const getMdxFilesRecursively = cache((dir: string): string[] => {
+  return scanDirectory(dir);
+});
 
 /**
  * Extract slug from MDX file path.
@@ -206,7 +211,7 @@ export const getPostsByCategory = cache((category: string): PostMeta[] => {
   );
 });
 
-export function getPostMarkdown(slug: string): string | null {
+export const getPostMarkdown = cache((slug: string): string | null => {
   const mdxFiles = getMdxFilesRecursively(blogDirectory);
   const fullPath = mdxFiles.find((file) => getSlugFromPath(file) === slug);
 
@@ -244,4 +249,4 @@ export function getPostMarkdown(slug: string): string | null {
   frontmatter.push("---");
 
   return frontmatter.join("\n") + "\n\n" + content.trim();
-}
+});

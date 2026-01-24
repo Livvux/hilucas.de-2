@@ -1,3 +1,5 @@
+import { cache } from "react";
+
 interface WPPluginStatProps {
   slugs: string[];
   stat: "plugins" | "active_installs" | "downloads";
@@ -12,18 +14,21 @@ interface PluginDownloads {
   all_time?: string;
 }
 
-async function getPluginInfo(slug: string): Promise<PluginInfo | null> {
-  try {
-    const res = await fetch(
-      `https://api.wordpress.org/plugins/info/1.2/?action=plugin_information&slug=${slug}`,
-      { next: { revalidate: 3600 } },
-    );
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
-}
+// Cached per-request to deduplicate calls across "plugins" and "active_installs" stats
+const getPluginInfo = cache(
+  async (slug: string): Promise<PluginInfo | null> => {
+    try {
+      const res = await fetch(
+        `https://api.wordpress.org/plugins/info/1.2/?action=plugin_information&slug=${slug}`,
+        { next: { revalidate: 3600 } },
+      );
+      if (!res.ok) return null;
+      return res.json();
+    } catch {
+      return null;
+    }
+  },
+);
 
 async function getPluginDownloads(slug: string): Promise<number> {
   try {

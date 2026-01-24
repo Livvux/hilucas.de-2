@@ -1,12 +1,7 @@
 import Link from "next/link";
 import type { PostMeta } from "@/lib/posts";
 import { getCategorySlug } from "@/lib/categories";
-
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  day: "numeric",
-  year: "numeric",
-});
+import { dateFormatter } from "@/lib/utils";
 
 export function PostCard({ post }: { post: PostMeta }) {
   const date = dateFormatter.format(new Date(post.date));
