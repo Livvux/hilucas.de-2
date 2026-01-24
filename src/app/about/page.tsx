@@ -38,25 +38,26 @@ export default function AboutPage() {
       </h1>
 
       <div className="space-y-6">
-        <p className="text-copy leading-relaxed">Hi there, my name is Nick.</p>
+        <p className="text-copy text-pretty leading-relaxed">Hi there, my name is Nick.</p>
 
-        <p className="text-copy leading-relaxed">
-          I&apos;m a Product Marketing Manager at Automattic as well as a
-          WordPress Core contributor, developer, and "retired" hospitality
-          marketer. I currently live in Minneapolis, Minnesota, with my wife,
-          our dog Willie, and many rescued cats.
+        <p className="text-copy text-pretty leading-relaxed">
+          I&apos;m a Product Marketing Manager at Automattic, a WordPress Core
+          contributor, a developer, and a “retired” hospitality marketer. I
+          currently live in Minneapolis, Minnesota, with my wife, our dog
+          Willie, and a growing number of rescued cats.
         </p>
 
-        <p className="text-copy leading-relaxed">
-          Here I share my web development projects, AI workflows, code snippets,
-          WordPress tutorials, and whatever else I&apos;m working on.
+        <p className="text-copy text-pretty leading-relaxed">
+          Here, I share my web development projects, AI workflows, code
+          snippets, WordPress tutorials, and whatever else I&apos;m currently
+          working on.
         </p>
 
-        <p className="text-copy leading-relaxed">
+        <p className="text-copy text-pretty leading-relaxed">
           For more on my WordPress plugins, check out the{" "}
-          <Link href="/projects">projects</Link> page. You can also reach me at{" "}
-          <Link href="https://x.com/nickmdiego">@nickmdiego</Link> or via the
-          social channels below.
+          <Link href="/projects">projects</Link> page. You can also find me at{" "}
+          <Link href="https://x.com/nickmdiego">@nickmdiego</Link> or through
+          the social channels below.
         </p>
       </div>
     </div>
