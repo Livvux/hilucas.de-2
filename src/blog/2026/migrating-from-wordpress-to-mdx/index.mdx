@@ -7,13 +7,14 @@ categories:
   - Next.js
 ---
 
-I typed `/new-post` in Claude Code and answered three questions—title, slug, images or no images. Ten seconds later, I had a new MDX file with frontmatter ready to go. I'm writing in it right now.
+I typed `/new-post` in Claude Code and answered three questions. Ten seconds later, I had a new MDX file with frontmatter ready to go. I'm writing in it right now.
 
-This is what I wanted. This is why I migrated.
+ <Image src="./mdx-skill-invocation.png" alt="Invoking the /new-post skill in Claude Code."     
+  width={2002} height={1726} />
 
-Lee Robinson [wrote something](https://leerob.com/agents) recently that stuck with me: "The cost of abstractions with AI is very high." He was talking about moving Cursor's docs from a headless CMS to MDX files. The idea resonated immediately.
+Lee Robinson [wrote something](https://leerob.com/agents) recently that stuck with me: "The cost of abstractions with AI is very high." He was talking about moving Cursor's docs from a headless CMS to MDX files and the benefits of this approach when leveraging agentic workflows. The idea resonated immediately.
 
-I've spent the last decade building with WordPress, and I still think it's the right choice for a lot of projects. But for my personal blog, the abstraction was getting in the way.
+I've spent the last decade building with WordPress, and I still think it's the right choice for countless projects. But for my personal blog, the abstraction layer was getting in the way.
 
 ## What I was fighting
 
@@ -90,8 +91,12 @@ More than anything, I enjoy writing here again. That's the part I didn't expect.
 
 The entire site is open source. You can browse the code, see how the skills work, and steal whatever's useful:
 
-<GHRepoCard repo="ndiego/nickdiego.com" />
+<GHRepoCard
+  repo="ndiego/nickdiego.com"
+  title="nickdiego.com"
+  description="The source code for this site—Next.js 16, MDX, Tailwind, and the Claude Code skills that power the workflow."
+/>
 
 Fair warning: this is experimental and changes almost daily. I'm actively tweaking the setup, adding new skills, and figuring out what works as I go. If you check back in a month, things will probably look different.
 
-If you're thinking about a similar migration, I'd love to hear about it. And if you have ideas for how to make this setup better, even better. Reach out at @nickmdiego.
+If you're thinking about a similar migration, I'd love to hear about it. And if you have ideas for how to make this setup better, even better. Reach out at [@nickmdiego](https://x.com/nickmdiego).
