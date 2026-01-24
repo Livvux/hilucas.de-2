@@ -48,12 +48,15 @@ export default function AboutPage() {
         </p>
 
         <p className="text-copy leading-relaxed">
-          Here I share my web development projects, AI workflows, code snippets, WordPress
-          tutorials, and whatever else I&apos;m working on.
+          Here I share my web development projects, AI workflows, code snippets,
+          WordPress tutorials, and whatever else I&apos;m working on.
         </p>
 
         <p className="text-copy leading-relaxed">
-          For more on my WordPress plugins, check out the <Link href="/projects">projects</Link> page. You can also reach me at <Link href="https://x.com/nickmdiego">@nickmdiego</Link> or via the social channels below.
+          For more on my WordPress plugins, check out the{" "}
+          <Link href="/projects">projects</Link> page. You can also reach me at{" "}
+          <Link href="https://x.com/nickmdiego">@nickmdiego</Link> or via the
+          social channels below.
         </p>
       </div>
     </div>

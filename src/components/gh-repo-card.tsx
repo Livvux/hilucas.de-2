@@ -28,7 +28,7 @@ const getRepoStats = unstable_cache(
     }
   },
   ["github-repo-stats"],
-  { revalidate: 86400 }
+  { revalidate: 86400 },
 );
 
 export async function GHRepoCard({

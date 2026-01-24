@@ -67,16 +67,32 @@ export function Header() {
               </Link>
             </SheetTitle>
             <nav className="flex flex-col gap-2 mt-8">
-              <Link href="/about" onClick={() => setOpen(false)} variant="muted">
+              <Link
+                href="/about"
+                onClick={() => setOpen(false)}
+                variant="muted"
+              >
                 About
               </Link>
-              <Link href="/writing" onClick={() => setOpen(false)} variant="muted">
+              <Link
+                href="/writing"
+                onClick={() => setOpen(false)}
+                variant="muted"
+              >
                 Writing
               </Link>
-              <Link href="/projects" onClick={() => setOpen(false)} variant="muted">
+              <Link
+                href="/projects"
+                onClick={() => setOpen(false)}
+                variant="muted"
+              >
                 Projects
               </Link>
-              <Link href="/speaking" onClick={() => setOpen(false)} variant="muted">
+              <Link
+                href="/speaking"
+                onClick={() => setOpen(false)}
+                variant="muted"
+              >
                 Speaking
               </Link>
             </nav>

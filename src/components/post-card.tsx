@@ -39,7 +39,11 @@ export function PostCard({ post }: { post: PostMeta }) {
         </div>
 
         <h2 className="text-lg font-medium text-balance leading-tight max-w-[90%]">
-          <Link href={postUrl} variant="unstyled" className="pointer-events-auto">
+          <Link
+            href={postUrl}
+            variant="unstyled"
+            className="pointer-events-auto"
+          >
             {post.title}
           </Link>
         </h2>

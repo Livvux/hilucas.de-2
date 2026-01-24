@@ -7,17 +7,15 @@ Custom components available for use in MDX content.
 Display callout boxes for notes, tips, warnings, and other important information.
 
 ```mdx
-<Notice type="note">
-  This is a note with helpful information.
-</Notice>
+<Notice type="note">This is a note with helpful information.</Notice>
 ```
 
 ### Props
 
-| Prop       | Required | Default  | Description                                                 |
-| ---------- | -------- | -------- | ----------------------------------------------------------- |
+| Prop       | Required | Default  | Description                                                      |
+| ---------- | -------- | -------- | ---------------------------------------------------------------- |
 | `type`     | No       | `"note"` | Type of notice: `note`, `tip`, `important`, `warning`, `caution` |
-| `children` | Yes      | —        | Content to display                                          |
+| `children` | Yes      | —        | Content to display                                               |
 
 ### Types
 
@@ -179,11 +177,11 @@ Embed YouTube videos using the privacy-enhanced embed (youtube-nocookie.com).
 
 ### Props
 
-| Prop    | Required | Default           | Description                |
-| ------- | -------- | ----------------- | -------------------------- |
-| `id`    | Yes      | —                 | YouTube video ID           |
-| `title` | No       | `"YouTube video"` | Accessible title           |
-| `start` | No       | —                 | Start time in seconds      |
+| Prop    | Required | Default           | Description           |
+| ------- | -------- | ----------------- | --------------------- |
+| `id`    | Yes      | —                 | YouTube video ID      |
+| `title` | No       | `"YouTube video"` | Accessible title      |
+| `start` | No       | —                 | Start time in seconds |
 
 ### Example with Start Time
 
@@ -264,11 +262,11 @@ Display a WordPress plugin card with live ratings and active install counts fetc
 
 ### Props
 
-| Prop          | Required | Description                                |
-| ------------- | -------- | ------------------------------------------ |
-| `slug`        | Yes      | WordPress.org plugin slug                  |
-| `title`       | Yes      | Display title for the card                 |
-| `description` | Yes      | Brief description of the plugin            |
+| Prop          | Required | Description                     |
+| ------------- | -------- | ------------------------------- |
+| `slug`        | Yes      | WordPress.org plugin slug       |
+| `title`       | Yes      | Display title for the card      |
+| `description` | Yes      | Brief description of the plugin |
 
 ### Features
 
@@ -290,11 +288,11 @@ Display a call-to-action button that links to internal or external URLs.
 
 ### Props
 
-| Prop       | Required | Default  | Description                                    |
-| ---------- | -------- | -------- | ---------------------------------------------- |
-| `href`     | Yes      | —        | URL to link to                                 |
-| `children` | Yes      | —        | Button text                                    |
-| `align`    | No       | `"left"` | Alignment: `left`, `center`, or `right`        |
+| Prop       | Required | Default  | Description                             |
+| ---------- | -------- | -------- | --------------------------------------- |
+| `href`     | Yes      | —        | URL to link to                          |
+| `children` | Yes      | —        | Button text                             |
+| `align`    | No       | `"left"` | Alignment: `left`, `center`, or `right` |
 
 ### Features
 
@@ -306,13 +304,18 @@ Display a call-to-action button that links to internal or external URLs.
 
 ```mdx
 {/* Left-aligned (default) */}
+
 <LinkButton href="/blog">Read more posts</LinkButton>
 
 {/* Centered */}
+
 <LinkButton href="https://github.com/owner/repo" align="center">
   View on GitHub
 </LinkButton>
 
 {/* Right-aligned */}
-<LinkButton href="/contact" align="right">Get in touch</LinkButton>
+
+<LinkButton href="/contact" align="right">
+  Get in touch
+</LinkButton>
 ```

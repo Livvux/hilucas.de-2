@@ -48,21 +48,19 @@ Beyond standard Markdown, posts can use custom components:
 
 Example usage in a post:
 
-~~~mdx
+````mdx
 Here's a code block with a filename header:
 
 ```tsx title="Button.tsx"
 export function Button({ children }) {
-  return <button className="btn">{children}</button>
+  return <button className="btn">{children}</button>;
 }
 ```
 
 <GHRepoCard repo="WordPress/gutenberg" />
 
-<Notice type="tip">
-  This is a helpful tip for readers.
-</Notice>
-~~~
+<Notice type="tip">This is a helpful tip for readers.</Notice>
+````
 
 ## Tech Stack
 

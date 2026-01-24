@@ -28,9 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "Projects",
     description,
-    images: [
-      "/api/og?title=Projects&subtitle=Open-source projects and tools",
-    ],
+    images: ["/api/og?title=Projects&subtitle=Open-source projects and tools"],
   },
   alternates: {
     canonical: "/projects",
@@ -56,16 +54,14 @@ export default function ProjectsPage() {
 
       <h2 className="text-2xl font-medium mb-4">WordPress</h2>
       <p className="text-copy mb-12">
-        Much of my early development work focused on WordPress. These projects include custom blocks, and Editor
-        extensions. Some are available in the{" "}
+        Much of my early development work focused on WordPress. These projects
+        include custom blocks, and Editor extensions. Some are available in the{" "}
         <Link href="https://profiles.wordpress.org/ndiego/#content-plugins">
           Plugin Directory
         </Link>{" "}
         on WordPress.org, and others are experimental or built for my personal
-        use.
-        You&apos;ll find more on{" "}
-        <Link href="https://github.com/ndiego">GitHub</Link>
-        .
+        use. You&apos;ll find more on{" "}
+        <Link href="https://github.com/ndiego">GitHub</Link>.
       </p>
 
       <section className="mb-12">
