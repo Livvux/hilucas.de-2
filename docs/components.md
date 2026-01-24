@@ -2,6 +2,49 @@
 
 Custom components available for use in MDX content.
 
+## Notice
+
+Display callout boxes for notes, tips, warnings, and other important information.
+
+```mdx
+<Notice type="note">
+  This is a note with helpful information.
+</Notice>
+```
+
+### Props
+
+| Prop       | Required | Default  | Description                                                 |
+| ---------- | -------- | -------- | ----------------------------------------------------------- |
+| `type`     | No       | `"note"` | Type of notice: `note`, `tip`, `important`, `warning`, `caution` |
+| `children` | Yes      | —        | Content to display                                          |
+
+### Types
+
+- **note** (ℹ️) — General information
+- **tip** (💡) — Helpful suggestions
+- **important** (✨) — Key information to highlight
+- **warning** (⚠️) — Potential issues to be aware of
+- **caution** (🚨) — Critical warnings
+
+### Examples
+
+```mdx
+<Notice type="tip">
+  Use the `size="small"` prop on images to display them at 60% width.
+</Notice>
+
+<Notice type="warning">
+  This API is deprecated and will be removed in the next major version.
+</Notice>
+
+<Notice type="caution">
+  Deleting this file will permanently remove all user data.
+</Notice>
+```
+
+---
+
 ## Image
 
 The `<Image>` component uses Next.js Image optimization. **Width and height are required** for proper aspect ratio and optimization.
@@ -128,11 +171,46 @@ Upload videos to Cloudflare Stream via the Cloudflare dashboard. The video ID is
 
 ## YouTube
 
-Embed YouTube videos by ID.
+Embed YouTube videos using the privacy-enhanced embed (youtube-nocookie.com).
 
 ```mdx
 <YouTube id="dQw4w9WgXcQ" />
 ```
+
+### Props
+
+| Prop    | Required | Default           | Description                |
+| ------- | -------- | ----------------- | -------------------------- |
+| `id`    | Yes      | —                 | YouTube video ID           |
+| `title` | No       | `"YouTube video"` | Accessible title           |
+| `start` | No       | —                 | Start time in seconds      |
+
+### Example with Start Time
+
+```mdx
+<YouTube id="dQw4w9WgXcQ" title="Introduction to React" start={120} />
+```
+
+---
+
+## Tweet
+
+Embed Twitter/X posts by ID. The embed automatically adapts to dark/light mode.
+
+```mdx
+<Tweet id="1234567890123456789" />
+```
+
+### Props
+
+| Prop | Required | Description   |
+| ---- | -------- | ------------- |
+| `id` | Yes      | Tweet/post ID |
+
+### Finding the Tweet ID
+
+The tweet ID is the numeric string at the end of a tweet URL:
+`https://twitter.com/username/status/1234567890123456789` → ID is `1234567890123456789`
 
 ---
 
@@ -142,12 +220,12 @@ Syntax highlighted code with line numbers, copy button, and collapsible option. 
 
 ---
 
-## GitHubRepoCard
+## GHRepoCard
 
 Display a GitHub repository card with live star and fork counts fetched from the GitHub API.
 
 ```mdx
-<GitHubRepoCard
+<GHRepoCard
   repo="owner/repo"
   title="Project Name"
   description="A brief description of the project"
@@ -165,6 +243,76 @@ Display a GitHub repository card with live star and fork counts fetched from the
 ### Features
 
 - Fetches live star and fork counts from GitHub API
-- Stats are cached and revalidated hourly
+- Stats are cached and revalidated daily
 - Links to the repository on GitHub
 - Gracefully handles API errors (shows card without stats)
+- Optionally uses `GITHUB_TOKEN` env var for higher rate limits
+
+---
+
+## WPPluginCard
+
+Display a WordPress plugin card with live ratings and active install counts fetched from the WordPress.org API.
+
+```mdx
+<WPPluginCard
+  slug="plugin-slug"
+  title="Plugin Name"
+  description="A brief description of the plugin"
+/>
+```
+
+### Props
+
+| Prop          | Required | Description                                |
+| ------------- | -------- | ------------------------------------------ |
+| `slug`        | Yes      | WordPress.org plugin slug                  |
+| `title`       | Yes      | Display title for the card                 |
+| `description` | Yes      | Brief description of the plugin            |
+
+### Features
+
+- Fetches live rating count and active installs from WordPress.org API
+- Displays current plugin version
+- Stats are cached and revalidated hourly
+- Links to the plugin page on WordPress.org
+- Gracefully handles API errors (shows card without stats)
+
+---
+
+## LinkButton
+
+Display a call-to-action button that links to internal or external URLs.
+
+```mdx
+<LinkButton href="https://example.com">View the demo</LinkButton>
+```
+
+### Props
+
+| Prop       | Required | Default  | Description                                    |
+| ---------- | -------- | -------- | ---------------------------------------------- |
+| `href`     | Yes      | —        | URL to link to                                 |
+| `children` | Yes      | —        | Button text                                    |
+| `align`    | No       | `"left"` | Alignment: `left`, `center`, or `right`        |
+
+### Features
+
+- External links (starting with `http`) open in new tab with `noopener noreferrer`
+- Internal links navigate normally
+- Includes an arrow icon indicating external navigation
+
+### Examples
+
+```mdx
+{/* Left-aligned (default) */}
+<LinkButton href="/blog">Read more posts</LinkButton>
+
+{/* Centered */}
+<LinkButton href="https://github.com/owner/repo" align="center">
+  View on GitHub
+</LinkButton>
+
+{/* Right-aligned */}
+<LinkButton href="/contact" align="right">Get in touch</LinkButton>
+```
