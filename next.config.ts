@@ -3,6 +3,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+  // React Compiler for automatic memoization
+  reactCompiler: true,
+  experimental: {
+    // Optimize barrel file imports
+    optimizePackageImports: ["lucide-react"],
+  },
   images: {
     remotePatterns: [
       {

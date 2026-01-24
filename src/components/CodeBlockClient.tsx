@@ -107,13 +107,16 @@ export function CodeBlockClient({
   const isCollapsible = maxLines && lineCount > maxLines;
   const shouldCollapse = isCollapsible && !isExpanded;
 
+  // React Compiler handles memoization automatically
   const handleCopy = async () => {
     await navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleToggleExpand = () => setIsExpanded(!isExpanded);
+  const handleToggleExpand = () => setIsExpanded((prev) => !prev);
+
+  const lineNumbers = Array.from({ length: lineCount }, (_, i) => i + 1);
 
   // Calculate max height based on line count (1.5rem line height + padding)
   const collapsedHeight = maxLines ? `${maxLines * 1.5 + 2}rem` : undefined;
@@ -148,8 +151,8 @@ export function CodeBlockClient({
                 className="line-numbers flex-none select-none text-right font-mono text-muted-foreground py-4 pl-4 pr-5"
                 aria-hidden="true"
               >
-                {Array.from({ length: lineCount }, (_, i) => (
-                  <div key={i}>{i + 1}</div>
+                {lineNumbers.map((num) => (
+                  <div key={num}>{num}</div>
                 ))}
               </div>
             )}

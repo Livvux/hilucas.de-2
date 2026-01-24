@@ -2,12 +2,7 @@
 
 import { Mic2, Video, Headphones, Users } from "lucide-react";
 import type { Talk, TalkCategory } from "@/data/talks";
-
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  day: "numeric",
-  year: "numeric",
-});
+import { dateFormatter } from "@/lib/utils";
 
 const categoryIcons: Record<TalkCategory, React.ReactNode> = {
   conference: <Mic2 className="size-4" />,
@@ -21,6 +16,7 @@ export function TalkCard({ talk }: { talk: Talk }) {
   const date = dateFormatter.format(new Date(talk.date));
   const talkUrl = talk.recordingUrl || talk.url;
 
+  // React Compiler handles memoization automatically
   const handleCardClick = (e: React.MouseEvent) => {
     // Don't navigate if clicking on a link
     if ((e.target as HTMLElement).closest("a")) return;

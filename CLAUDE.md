@@ -39,6 +39,7 @@ src/
 
 ### Key Conventions
 
+- **React Compiler**: This project uses React Compiler for automatic memoization. Do NOT manually add `useMemo`, `useCallback`, or `memo` - the compiler handles this automatically. Only use `"use no memo"` directive if you need to opt out for a specific case.
 - **Images in MDX**: Colocate images with posts in folder structure (`src/blog/2024/my-post/index.mdx` with images alongside). Use relative paths (`src="./image.png"`). Always provide `width` and `height` props. Use `sips -g pixelWidth -g pixelHeight` to get dimensions.
 - **Code blocks**: Use fenced code blocks with info string options, not `<CodeBlock>` JSX directly.
 - **Static UI**: Prefer direct JSX over array mapping for navigation, links, etc.
