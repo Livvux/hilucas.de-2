@@ -71,16 +71,17 @@ The `./` prefix is automatically resolved to the correct API route at build time
 
 ### Props
 
-| Prop       | Required | Description                                                                       |
-| ---------- | -------- | --------------------------------------------------------------------------------- |
-| `src`      | Yes      | Path to the image                                                                 |
-| `alt`      | Yes      | Alt text for accessibility                                                        |
-| `width`    | Yes      | Original image width in pixels                                                    |
-| `height`   | Yes      | Original image height in pixels                                                   |
-| `size`     | No       | Size variant: `"default"` (full content width) or `"small"` (60% width, centered) |
-| `caption`  | No       | Caption displayed below the image (supports JSX)                                  |
-| `bordered` | No       | Add a border around the image                                                     |
-| `priority` | No       | Load image with priority (for above-the-fold images)                              |
+| Prop         | Required | Description                                                                       |
+| ------------ | -------- | --------------------------------------------------------------------------------- |
+| `src`        | Yes      | Path to the image                                                                 |
+| `alt`        | Yes      | Alt text for accessibility                                                        |
+| `width`      | Yes      | Original image width in pixels                                                    |
+| `height`     | Yes      | Original image height in pixels                                                   |
+| `size`       | No       | Size variant: `"default"` (full content width) or `"small"` (60% width, centered) |
+| `caption`    | No       | Caption displayed below the image (supports JSX)                                  |
+| `bordered`   | No       | Add a border around the image                                                     |
+| `priority`   | No       | Load image with priority (for above-the-fold images)                              |
+| `expandable` | No       | Enable click-to-expand lightbox preview                                           |
 
 ### Size Variants
 
@@ -107,6 +108,20 @@ The `./` prefix is automatically resolved to the correct API route at build time
       This is a caption with a <a href="https://example.com">link</a>.
     </>
   }
+/>
+```
+
+### Expandable Lightbox
+
+Add `expandable` to enable a click-to-expand lightbox. An expand icon appears on hover, and clicking opens the image in a fullscreen modal.
+
+```mdx
+<Image
+  src="./detailed-diagram.png"
+  alt="Architecture diagram"
+  width={1200}
+  height={800}
+  expandable
 />
 ```
 
