@@ -298,16 +298,16 @@ Display a WordPress plugin card with live ratings and active install counts fetc
 Display a call-to-action button that links to internal or external URLs.
 
 ```mdx
-<LinkButton href="https://example.com">View the demo</LinkButton>
+<LinkButton href="https://example.com" label="View the demo" />
 ```
 
 ### Props
 
-| Prop       | Required | Default  | Description                             |
-| ---------- | -------- | -------- | --------------------------------------- |
-| `href`     | Yes      | —        | URL to link to                          |
-| `children` | Yes      | —        | Button text                             |
-| `align`    | No       | `"left"` | Alignment: `left`, `center`, or `right` |
+| Prop    | Required | Default  | Description                             |
+| ------- | -------- | -------- | --------------------------------------- |
+| `href`  | Yes      | —        | URL to link to                          |
+| `label` | Yes      | —        | Button text                             |
+| `align` | No       | `"left"` | Alignment: `left`, `center`, or `right` |
 
 ### Features
 
@@ -319,18 +319,11 @@ Display a call-to-action button that links to internal or external URLs.
 
 ```mdx
 {/* Left-aligned (default) */}
-
-<LinkButton href="/blog">Read more posts</LinkButton>
+<LinkButton href="/blog" label="Read more posts" />
 
 {/* Centered */}
-
-<LinkButton href="https://github.com/owner/repo" align="center">
-  View on GitHub
-</LinkButton>
+<LinkButton href="https://github.com/owner/repo" align="center" label="View on GitHub" />
 
 {/* Right-aligned */}
-
-<LinkButton href="/contact" align="right">
-  Get in touch
-</LinkButton>
+<LinkButton href="/contact" align="right" label="Get in touch" />
 ```
