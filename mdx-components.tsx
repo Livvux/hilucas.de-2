@@ -34,7 +34,7 @@ export function getMDXComponents(
   return {
     // Basic text elements
     p: ({ children }) => (
-      <p className="text-copy leading-relaxed mb-6">{children}</p>
+      <p className="text-copy leading-relaxed mb-6 text-pretty">{children}</p>
     ),
     h1: ({ children, id }) => (
       <h1
