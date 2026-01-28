@@ -6,7 +6,7 @@ categories:
   - AI
 ---
 
-To start writing this post, I typed `/new-post` into Claude Code and answered a couple of questions. About ten seconds later, I had a brand-new markdown file. MDX, to be specific, complete with frontmatter and ready to go.
+To start writing this post, I typed `/new-post` into Claude Code and answered a couple of questions. About 15 seconds later, I had a brand-new markdown file. MDX, to be specific, complete with frontmatter and ready to go.
 
 <Image
   src="./mdx-skill-invocation.png"
@@ -22,7 +22,7 @@ This workflow was inspired by something Lee Robinson wrote recently:
 
 He was describing Cursor’s decision to move their documentation from a headless CMS to MDX files, essentially trading a database-backed system for plain text. Once paired with agentic workflows, the benefits showed up almost immediately. It’s a [great article](https://leerob.com/agents) and worth reading in full.
 
-As many of you know, I’ve been building with WordPress for the better part of a decade. I still believe it’s the right choice for an enormous number of projects. But as I’ve adopted AI-driven tools into my workflow, the abstraction layer WordPress provides has started to increasingly get in the way.
+As many of you know, I’ve been building with WordPress for the better part of a decade. I still believe it’s the right choice for an enormous number of projects. But as I’ve adopted AI into my workflows, the abstraction layer WordPress provides has started to get in the way.
 
 ## What I was fighting
 
@@ -32,11 +32,11 @@ AI tools can’t easily “see” through that structure. When I ask Claude Code
 
 The [WordPress AI team](https://make.wordpress.org/ai/) is actively working to change this, and several projects are already making real progress.
 
-But for my personal site, where speed, iteration, and context matter more than editorial workflows, it felt simpler to step back and rethink the foundation entirely. It also turned into a fun experiment.
+But for my personal site, where speed, iteration, and context matter more than traditional editorial workflows, it felt simpler to step back and rethink the foundation entirely. It also turned into a fun experiment.
 
 ## The new setup
 
-The entire site is about 4,200 lines of TypeScript, excluding posts. It runs on Next.js 16. MDX handles content, Tailwind handles styling, and Shiki handles code blocks. Posts are just files:
+This entire site is now about 5,200 lines of code, excluding posts. It runs on Next.js 16. MDX handles content, Tailwind handles styling, and Shiki handles code blocks. Posts are just files:
 
 ```
 src/blog/
@@ -51,7 +51,7 @@ src/blog/
 
 Posts with images live in folders. Posts without images are a single file. Images sit right next to the content that uses them. There’s no media library and no attachment IDs.
 
-I can drop custom components like `<Image>`, `<Video>`, or `<GHRepoCard>` directly into any post. Code blocks get syntax highlighting automatically. Light and dark themes just work.
+I can drop custom components like `<Image>`, `<Video>`, or `<GHRepoCard>` directly into any post. Code blocks get syntax highlighting automatically. Light and dark mode just works.
 
 Everything is version controlled in Git and deployed on Vercel. Content, components, and styling all live in the same place, which gives AI tools direct access to the full context of the site.
 
@@ -59,7 +59,7 @@ When I wanted to add copy buttons and expandable sections to code blocks, it was
 
 ## Teaching Claude about the project
 
-Like all of my Claude Code projects, this one has a `CLAUDE.md` file at the root. Beyond some general context, mine points to a small `docs/` folder that explains how content works, what components exist, and the conventions the site follows. Things like styling rules, design patterns, and authoring guidelines live there. There’s still plenty more I could add, but even this amount goes a long way.
+Like all Claude Code projects, this one has a `CLAUDE.md` file at the root. Beyond some general context, mine points to a small `docs/` folder that explains how content works, what components exist, and the conventions the site follows. Things like styling rules, design patterns, and authoring guidelines live there. There’s still plenty more I could add, but even this amount goes a long way.
 
 ```
 CLAUDE.md
@@ -79,14 +79,14 @@ Skills are reusable prompts you invoke with a slash `/` command. I’ve built a 
 
 - [`commit`](https://github.com/ndiego/nickdiego.com/blob/main/.claude/skills/commit/SKILL.md) reviews the changes made in the current session, groups them logically, and writes commit messages. I can pass `all` to commit all pending changes and `push` to push when done.
 
-I’m also experimenting with community skills. Things like `web-design-guidelines` review UI code against best practices, while `vercel-react-best-practices` help catch React performance issues. The ecosystem is still early, but it’s growing quickly. If you’re curious, [Skills.sh](https://skills.sh/) is a good place to explore what’s out there.
+I’m also experimenting with community skills. Things like `web-design-guidelines` review UI code against best practices, while `vercel-react-best-practices` help catch React performance issues. The ecosystem is still young, but it’s growing quickly. If you’re curious, [Skills.sh](https://skills.sh/) is a good place to explore what’s out there.
 
 ## Tradeoffs and takeaways
 
 There are gaps. I don’t have comments yet, and probably won’t. Search is just browser find. Publishing happens when I merge a PR to `main`. That’s fine for a personal site, but it wouldn’t work everywhere. Some parts are likely overengineered, others too simple. This is still very much an experiment.
 
-It’s also not the only way to approach this. There are excellent purpose-built tools like [Astro](https://astro.build/) that solve many of these problems out of the box. For me, this migration was an opportunity to build something from scratch, understand the tradeoffs firsthand, and explore what an AI-assisted workflow can look like when everything lives in one place.
+It’s also not the only way to approach this. There are excellent purpose-built tools like [Astro](https://astro.build/) that solve many of these problems out of the box. For me, this migration was an opportunity to build something from scratch, understand the tradeoffs firsthand, and explore what an AI-assisted workflow can look like.
 
-The migration itself took a weekend. Another week of sporadic tinkering went into design tweaks and small features. Now I have a site that’s fast, cheap to run, and aligned with how I think and work.
+The migration itself took a weekend. Another week of sporadic tinkering went into design tweaks and small features. Now I have a site that’s fast, cheap to run, easy to iterate on, and aligned with how I think and work.
 
 The [entire site](https://github.com/ndiego/nickdiego.com) is open source. You can browse the code, see how the skills work, and take whatever’s useful. Fair warning: this setup is experimental and changes often. If you’re exploring something similar, I’d love to hear about it. Reach out at [@nickmdiego](https://x.com/nickmdiego).
