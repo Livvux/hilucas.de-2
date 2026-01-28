@@ -4,10 +4,9 @@ date: 2026-01-24
 excerpt: "Why I moved my personal blog from WordPress to MDX, and how flat file structures unlock powerful AI workflows."
 categories:
   - AI
-  - Next.js
 ---
 
-I typed `/new-post` in Claude Code and answered three questions. Ten seconds later, I had a new MDX file with frontmatter ready to go. I'm writing in it right now.
+To start writing this post, I typed `/new-post` into Claude Code and answered a couple of questions. About ten seconds later, I had a brand-new markdown file. MDX, to be specific, complete with frontmatter and ready to go.
 
 <Image
   src="./mdx-skill-invocation.png"
@@ -17,27 +16,27 @@ I typed `/new-post` in Claude Code and answered three questions. Ten seconds lat
   expandable
 />
 
-This workflow was inspired by something Lee Robinson [wrote](https://leerob.com/agents) recently: 
+This workflow was inspired by something Lee Robinson wrote recently:
 
-> “The cost of abstractions with AI is very high.” 
+> The cost of abstractions with AI is very high. 
 
-He was talking about moving Cursor’s documentation from a headless CMS to MDX files, essentially trading a database-backed system for plain text. The benefits showed up immediately once coupled with agentic workflows.
+He was describing Cursor’s decision to move their documentation from a headless CMS to MDX files, essentially trading a database-backed system for plain text. Once paired with agentic workflows, the benefits showed up almost immediately. It’s a [great article](https://leerob.com/agents) and worth reading in full.
 
-I've spent the last decade building with WordPress, and I still think it's the right choice for countless projects. But for my personal blog, the abstraction layer was getting in the way.
+As many of you know, I’ve been building with WordPress for the better part of a decade. I still believe it’s the right choice for an enormous number of projects. But as I’ve adopted AI-driven tools into my workflow, the abstraction layer WordPress provides has started to increasingly get in the way.
 
 ## What I was fighting
 
-In WordPress, everything lives behind layers. Content sits in the database, media files land in `wp-content/uploads`, styling and layout come from your theme, and custom functionality requires plugins. Add the block editor on top, and while it’s great for visual editing, there’s a lot of machinery between you and the words.
+In WordPress, content lives in a database. Media files land in `wp-content/uploads`. Styling and layout come from your theme, and custom functionality usually means plugins. Add the block editor on top, and while it’s excellent for visual editing, there’s a lot of machinery between you and the final output.
 
-AI can’t see through those layers easily. The [WordPress AI team](https://make.wordpress.org/ai/) is working hard to change this and several projects are making real progress. But most of that capability still depends on custom plugins, APIs, or hosted services. 
+AI tools can’t easily “see” through that structure. When I ask Claude Code to help modify my blog, it can’t natively read my existing posts for context. When I want to add new functionality, it struggles to reference established design or development patterns across the site.
 
-When I ask Claude Code to help modify my blog, it can’t natively read my other posts for context. When I want to add new functionality, it can’t reference existing patterns.
+The [WordPress AI team](https://make.wordpress.org/ai/) is actively working to change this, and several projects are already making real progress.
 
-For my personal site, it was simpler to just start from scratch.
+But for my personal site, where speed, iteration, and context matter more than editorial workflows, it felt simpler to step back and rethink the foundation entirely. It also turned into a fun experiment.
 
 ## The new setup
 
-The whole site is about 4,200 lines of TypeScript excluding posts. It’s Next.js 16, MDX for content, Tailwind for styling, and Shiki for code blocks. Posts are just files:
+The entire site is about 4,200 lines of TypeScript, excluding posts. It runs on Next.js 16. MDX handles content, Tailwind handles styling, and Shiki handles code blocks. Posts are just files:
 
 ```
 src/blog/
@@ -50,68 +49,44 @@ src/blog/
     └── another-post.mdx
 ```
 
-Posts with images get a folder. Posts without images get a single file. Images sit next to the content that uses them. There’s no media library and no attachment IDs.
+Posts with images live in folders. Posts without images are a single file. Images sit right next to the content that uses them. There’s no media library and no attachment IDs.
 
-I can drop `<Video>`, `<Tweet>`, or `<GHRepoCard>` directly into any post. Code blocks get syntax highlighting automatically. Light and dark themes just work.
+I can drop custom components like `<Image>`, `<Video>`, or `<GHRepoCard>` directly into any post. Code blocks get syntax highlighting automatically. Light and dark themes just work.
 
-The tradeoff is tighter coupling between content and the React ecosystem. Everything gets version controlled together. For a personal site, that’s a feature, not a bug.
+Everything is version controlled in Git and deployed on Vercel. Content, components, and styling all live in the same place, which gives AI tools direct access to the full context of the site.
 
-## Why this works with AI
-
-Flat files change everything.
-
-Claude can read my components, grep for patterns, and see how problems were solved before. There’s no database to query, no REST API to navigate, and no PHP-JavaScript bridge to cross. It just sees the code.
-
-This matters most for agentic workflows, where the model needs to explore, compare, and modify the codebase rather than just generate isolated snippets.
-
-When I needed a code block component with copy buttons and collapsible sections, I described what I wanted. Claude read my existing components, matched the patterns, and built it. The whole thing took maybe ten minutes.
-
-You can build the same thing in WordPress with AI. But the result is still a plugin or custom block that needs to be bundled, uploaded, and activated. 
-
-Here, it’s just a React component. Prompt it, commit it, done.
+When I wanted to add copy buttons and expandable sections to code blocks, it was just a prompt. I then asked Claude to review all posts with code blocks and make any that were longer than 20 lines expandable. The whole process took maybe ten minutes.
 
 ## Teaching Claude about the project
 
-I have a `CLAUDE.md` file at the root. Claude Code reads it automatically. Mine points to a `docs/` folder with the real details—how content works, what components exist, styling conventions, the stuff that would take forever to re-explain every session.
+Like all of my Claude Code projects, this one has a `CLAUDE.md` file at the root. Beyond some general context, mine points to a small `docs/` folder that explains how content works, what components exist, and the conventions the site follows. Things like styling rules, design patterns, and authoring guidelines live there. There’s still plenty more I could add, but even this amount goes a long way.
 
-The key conventions matter most. Things like "use Base UI instead of Radix" and "this project uses React Compiler, so don't add useMemo manually." Small details that prevent Claude from fighting the codebase. There's still a lot more that I can add here. It's an iterative process.
+```
+CLAUDE.md
+docs/
+├── components.md
+├── content-authoring.md
+├── design-patterns.md
+├── getting-started.md
+└── styling.md
+```
 
-## Skills
+I’ve also been leaning more heavily on “skills,” which is where this setup really starts to shine.
 
-This is where it gets fun.
+Skills are reusable prompts you invoke with a slash `/` command. I’ve built a few to automate the repetitive parts of writing and maintenance:
 
-Claude Code lets you create "skills"—reusable prompts you invoke with a slash command. I've built a few and plan to add more:
+- [`new-post`](https://github.com/ndiego/nickdiego.com/blob/main/.claude/skills/new-post/SKILL.md) prompts me with several questions about the post, then creates the correct file structure with frontmatter already filled in. I can also pass `branch` to work on a dedicated Git branch instead of using draft mode.
 
-**`/new-post`** asks for title, slug, and whether I need images, then creates the right file structure with frontmatter already filled in. I can pass `branch` to work on a dedicated git branch instead of using draft mode.
+- [`commit`](https://github.com/ndiego/nickdiego.com/blob/main/.claude/skills/commit/SKILL.md) reviews the changes made in the current session, groups them logically, and writes commit messages. I can pass `all` to commit all pending changes and `push` to push when done.
 
-**`/commit`** looks at my changes, groups them logically, and writes the commit messages. I can pass `all` to commit everything or `push` to push when done.
+I’m also experimenting with community skills. Things like `web-design-guidelines` review UI code against best practices, while `vercel-react-best-practices` help catch React performance issues. The ecosystem is still early, but it’s growing quickly. If you’re curious, [Skills.sh](https://skills.sh/) is a good place to explore what’s out there.
 
-I'm also pulling in community skills—`/web-design-guidelines` reviews UI code against best practices, and `/vercel-react-best-practices` catches React performance issues. The ecosystem is still early, but it's growing. Check out [Skills.sh](https://skills.sh/) for inspiration.
+## Tradeoffs and takeaways
 
-## What I'm still figuring out
+There are gaps. I don’t have comments yet, and probably won’t. Search is just browser find. Publishing happens when I merge a PR to `main`. That’s fine for a personal site, but it wouldn’t work everywhere. Some parts are likely overengineered, others too simple. This is still very much an experiment.
 
-There are gaps. I don't have comments yet—probably wont. Search is just browser find for now. Scheduling doesn't exist; posts go live when I merge to main, which is fine for a personal blog but wouldn't work for a team.
+It’s also not the only way to approach this. There are excellent purpose-built tools like [Astro](https://astro.build/) that solve many of these problems out of the box. For me, this migration was an opportunity to build something from scratch, understand the tradeoffs firsthand, and explore what an AI-assisted workflow can look like when everything lives in one place.
 
-Some of this might be overengineered, some might be underengineered. The space is moving fast and I'm still learning what works.
+The migration itself took a weekend. Another week of sporadic tinkering went into design tweaks and small features. Now I have a site that’s fast, cheap to run, and aligned with how I think and work.
 
-## Was it worth it?
-
-The migration took a weekend—export from WordPress, convert to MDX, fix the code blocks, update image paths. Then another week of tweaking the design and adding features.
-
-Now I have a site that loads fast, costs nearly nothing to host, and actually works the way I think. I can ask Claude to help me write and it has all the context it needs. I can build features in minutes instead of hours.
-
-More than anything, I enjoy writing here again. That's the part I didn't expect.
-
-## Check it out
-
-The entire site is open source. You can browse the code, see how the skills work, and steal whatever's useful:
-
-<GHRepoCard
-  repo="ndiego/nickdiego.com"
-  title="nickdiego.com"
-  description="The source code for this site—Next.js 16, MDX, Tailwind, and the Claude Code skills that power the workflow."
-/>
-
-Fair warning: this is experimental and changes almost daily. I'm actively tweaking the setup, adding new skills, and figuring out what works as I go. If you check back in a month, things will probably look different.
-
-If you're thinking about a similar migration, I'd love to hear about it. And if you have ideas for how to make this setup better, even better. Reach out at [@nickmdiego](https://x.com/nickmdiego).
+The [entire site](https://github.com/ndiego/nickdiego.com) is open source. You can browse the code, see how the skills work, and take whatever’s useful. Fair warning: this setup is experimental and changes often. If you’re exploring something similar, I’d love to hear about it. Reach out at [@nickmdiego](https://x.com/nickmdiego).
