@@ -1,20 +1,19 @@
 export const siteConfig = {
-  name: "Nick Diego",
-  title: "Nick Diego",
+  name: "Lucas Kleipödszus",
+  title: "Lucas Kleipödszus",
   description:
-    "Founder, developer, and WordPress Core Contributor sharing insights on building for the web.",
-  url: "https://nickdiego.com",
+    "Fullstack Developer aus Deutschland. Spezialist für Webdesign, SEO und innovative digitale Lösungen. Jedes Projekt ist Open Source auf GitHub.",
+  url: "https://hilucas.de",
   author: {
-    name: "Nick Diego",
-    twitter: "@nickmdiego",
-    github: "ndiego",
+    name: "Lucas Kleipödszus",
+    twitter: "@Livvux",
+    github: "Livvux",
   },
   links: {
-    twitter: "https://x.com/nickmdiego",
-    github: "https://github.com/ndiego",
-    bluesky: "https://bsky.app/profile/nickdiego.com",
-    linkedin: "https://linkedin.com/in/nickmdiego",
-    wordpress: "https://profiles.wordpress.org/ndiego",
+    twitter: "https://x.com/Livvux",
+    github: "https://github.com/Livvux",
+    linkedin: "https://www.linkedin.com/in/lucas-kleipoedszus/",
+    email: "mailto:mail@hilucas.de",
   },
 } as const;
 

@@ -345,7 +345,7 @@ export const getPostMarkdown = cache((slug: string): string | null => {
     `title: '${(data.title ?? "Untitled").replace(/'/g, "''")}'`,
   );
   frontmatter.push(`date: '${dateStr}'`);
-  frontmatter.push(`author: Nick Diego`);
+  frontmatter.push(`author: ${siteConfig.author.name}`);
   if (data.excerpt) {
     frontmatter.push(`summary: '${data.excerpt.replace(/'/g, "''")}'`);
   }

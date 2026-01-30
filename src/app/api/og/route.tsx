@@ -12,7 +12,7 @@ async function getAvatarData(baseUrl: string): Promise<ArrayBuffer> {
   if (cachedAvatarData) {
     return cachedAvatarData;
   }
-  const avatarUrl = new URL("/images/avatar.png", baseUrl);
+  const avatarUrl = new URL("/images/avatar.jpg", baseUrl);
   const data = await fetch(avatarUrl).then((res) => res.arrayBuffer());
   cachedAvatarData = data;
   return data;
@@ -32,6 +32,7 @@ async function getFontData(): Promise<ArrayBuffer> {
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const title = searchParams.get("title") || siteConfig.name;
+  const hostname = new URL(siteConfig.url).hostname;
 
   // Fetch assets with caching for warm edge instances
   const [avatarData, fontData] = await Promise.all([
@@ -80,7 +81,7 @@ export async function GET(request: NextRequest) {
             color: "#737373",
           }}
         >
-          nickdiego.com
+          {hostname}
         </span>
         <h1
           style={{

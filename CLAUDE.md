@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/claude-code) when working 
 
 ## Project Overview
 
-Personal website for Nick Diego built with Next.js 16, MDX for content, and Tailwind CSS v4.
+Personal website for Lucas Kleipödszus built with Next.js 16, MDX for content, and Tailwind CSS v4.
 
 ## Documentation
 

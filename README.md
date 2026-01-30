@@ -1,11 +1,8 @@
-# nickdiego.com
+# hilucas.de
 
-This repository contains the source for my personal website, built with Next.js 16 and MDX. It was previously powered by WordPress and has since been migrated to a fully MDX-based setup, inspired by Lee Rob's [post](https://leerob.com/agents) on how Cursor moved their documentation to MDX.
+This repository contains the source for my personal website, built with Next.js 16 and MDX. It hosts my German-language blog posts, project updates, and personal profile.
 
-> [!NOTE]
-> This codebase is quite experimental. I'm using it to explore new agentic workflows, so expect things to change frequently and break occasionally.
-
-**Live site:** [nickdiego.com](https://nickdiego.com)
+**Live site:** [hilucas.de](https://hilucas.de)
 
 ## How it works
 
@@ -27,10 +24,10 @@ Each post has frontmatter for metadata:
 
 ```yaml
 ---
-title: Building a Custom Block
+title: SEO für Fahrschulen 2026
 date: 2024-03-15
-excerpt: A deep dive into WordPress block development
-categories: [WordPress, Block Editor]
+excerpt: Eine kompakte Übersicht für lokales SEO
+categories: [SEO, Marketing]
 featuredImage: ./cover.png
 ---
 ```

@@ -41,7 +41,7 @@ export function generateMetadata({
       description: metaDescription,
       url,
       siteName: siteConfig.name,
-      locale: "en_US",
+      locale: "de_DE",
       type,
       ...(type === "article" && {
         publishedTime,
@@ -129,8 +129,7 @@ export function generateWebsiteJsonLd() {
         siteConfig.links.twitter,
         siteConfig.links.github,
         siteConfig.links.linkedin,
-        siteConfig.links.bluesky,
-      ],
+      ].filter(Boolean) as string[],
     },
   };
 }
@@ -141,13 +140,11 @@ export function generatePersonJsonLd() {
     "@type": "Person",
     name: siteConfig.author.name,
     url: siteConfig.url,
-    jobTitle: "WordPress Developer & Developer Advocate",
+    jobTitle: "Fullstack Developer",
     sameAs: [
       siteConfig.links.twitter,
       siteConfig.links.github,
       siteConfig.links.linkedin,
-      siteConfig.links.bluesky,
-      siteConfig.links.wordpress,
-    ],
+    ].filter(Boolean) as string[],
   };
 }

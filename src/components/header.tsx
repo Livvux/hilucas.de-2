@@ -23,28 +23,22 @@ export function Header() {
           variant="unstyled"
         >
           <Image
-            src="/images/avatar.png"
-            alt="Nick Diego"
+            src="/images/avatar.jpg"
+            alt="Lucas Kleipödszus"
             width={48}
             height={48}
             className="rounded-full sm:hidden"
           />
-          <span className="font-medium hidden sm:block">Nick Diego</span>
+          <span className="font-medium hidden sm:block">Lucas Kleipödszus</span>
         </Link>
 
         {/* Desktop navigation */}
         <nav className="hidden sm:flex items-center gap-5">
           <Link href="/about" variant="muted" className="text-sm">
-            About
+            Über mich
           </Link>
           <Link href="/writing" variant="muted" className="text-sm">
-            Writing
-          </Link>
-          <Link href="/projects" variant="muted" className="text-sm">
-            Projects
-          </Link>
-          <Link href="/speaking" variant="muted" className="text-sm">
-            Speaking
+            Beiträge
           </Link>
         </nav>
 
@@ -63,7 +57,7 @@ export function Header() {
           <SheetContent side="right">
             <SheetTitle className="text-base font-medium">
               <Link href="/" onClick={() => setOpen(false)} variant="unstyled">
-                Nick Diego
+                Lucas Kleipödszus
               </Link>
             </SheetTitle>
             <nav className="flex flex-col gap-2 mt-8">
@@ -72,34 +66,20 @@ export function Header() {
                 onClick={() => setOpen(false)}
                 variant="muted"
               >
-                About
+                Über mich
               </Link>
               <Link
                 href="/writing"
                 onClick={() => setOpen(false)}
                 variant="muted"
               >
-                Writing
-              </Link>
-              <Link
-                href="/projects"
-                onClick={() => setOpen(false)}
-                variant="muted"
-              >
-                Projects
-              </Link>
-              <Link
-                href="/speaking"
-                onClick={() => setOpen(false)}
-                variant="muted"
-              >
-                Speaking
+                Beiträge
               </Link>
             </nav>
 
             <div className="flex flex-col gap-2 mt-8 pt-8 border-t border-border">
               <Link
-                href="https://x.com/nickmdiego"
+                href="https://x.com/Livvux"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
@@ -108,7 +88,7 @@ export function Header() {
                 X
               </Link>
               <Link
-                href="https://github.com/ndiego"
+                href="https://github.com/Livvux"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
@@ -117,7 +97,7 @@ export function Header() {
                 GitHub
               </Link>
               <Link
-                href="https://linkedin.com/in/nickmdiego"
+                href="https://www.linkedin.com/in/lucas-kleipoedszus/"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
@@ -126,22 +106,11 @@ export function Header() {
                 LinkedIn
               </Link>
               <Link
-                href="https://bsky.app/profile/nickdiego.com"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:mail@hilucas.de"
                 onClick={() => setOpen(false)}
                 variant="muted"
               >
-                Bluesky
-              </Link>
-              <Link
-                href="https://profiles.wordpress.org/ndiego"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                variant="muted"
-              >
-                WordPress
+                E-Mail
               </Link>
             </div>
           </SheetContent>

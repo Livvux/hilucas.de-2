@@ -8,37 +8,27 @@ export function Footer() {
         <div className="flex justify-between items-start gap-8 mb-12">
           <div className="grid grid-cols-2 gap-8 md:gap-12">
             <div>
-              <h3 className="font-medium mb-4">Explore</h3>
+              <h3 className="font-medium mb-4">Entdecken</h3>
               <ul className="text-sm">
                 <li>
                   <Link href="/about" variant="muted" className="block py-1">
-                    About
+                    Über mich
                   </Link>
                 </li>
                 <li>
                   <Link href="/writing" variant="muted" className="block py-1">
-                    Writing
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/projects" variant="muted" className="block py-1">
-                    Projects
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/speaking" variant="muted" className="block py-1">
-                    Speaking
+                    Beiträge
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-medium mb-4">Connect</h3>
+              <h3 className="font-medium mb-4">Kontakt</h3>
               <ul className="text-sm">
                 <li>
                   <Link
-                    href="https://x.com/nickmdiego"
+                    href="https://x.com/Livvux"
                     target="_blank"
                     rel="noopener noreferrer"
                     variant="muted"
@@ -49,7 +39,7 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="https://github.com/ndiego"
+                    href="https://github.com/Livvux"
                     target="_blank"
                     rel="noopener noreferrer"
                     variant="muted"
@@ -60,7 +50,7 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="https://linkedin.com/in/nickmdiego"
+                    href="https://www.linkedin.com/in/lucas-kleipoedszus/"
                     target="_blank"
                     rel="noopener noreferrer"
                     variant="muted"
@@ -71,24 +61,11 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="https://bsky.app/profile/nickdiego.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="mailto:mail@hilucas.de"
                     variant="muted"
                     className="block py-1"
                   >
-                    Bluesky
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="https://profiles.wordpress.org/ndiego"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    variant="muted"
-                    className="block py-1"
-                  >
-                    WordPress
+                    E-Mail
                   </Link>
                 </li>
               </ul>
@@ -99,7 +76,8 @@ export function Footer() {
 
         <div className="pt-8 border-t border-border text-xs text-muted-foreground">
           <p suppressHydrationWarning>
-            © {new Date().getFullYear()} Nick Diego. All rights reserved.
+            © {new Date().getFullYear()} Lucas Kleipödszus. Alle Rechte
+            vorbehalten.
           </p>
         </div>
       </div>

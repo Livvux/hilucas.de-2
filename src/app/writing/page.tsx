@@ -4,30 +4,30 @@ import { PostCard } from "@/components/post-card";
 import { CategoryNav } from "@/components/category-nav";
 
 const description =
-  "Articles and tutorials on WordPress development, the block editor, and building for the web.";
+  "Artikel und Updates zu Webdesign, SEO, KI-Tools und Open-Source-Projekten.";
+const ogTitle = encodeURIComponent("Beiträge");
+const ogSubtitle = encodeURIComponent("Aktuelle Artikel und Updates");
 
 export const metadata: Metadata = {
-  title: "Writing",
+  title: "Beiträge",
   description,
   openGraph: {
-    title: "Writing",
+    title: "Beiträge",
     description,
     url: "/writing",
     images: [
       {
-        url: "/api/og?title=Writing&subtitle=Articles on WordPress and web development",
+        url: `/api/og?title=${ogTitle}&subtitle=${ogSubtitle}`,
         width: 1200,
         height: 630,
-        alt: "Writing by Nick Diego",
+        alt: "Beiträge von Lucas Kleipödszus",
       },
     ],
   },
   twitter: {
-    title: "Writing",
+    title: "Beiträge",
     description,
-    images: [
-      "/api/og?title=Writing&subtitle=Articles on WordPress and web development",
-    ],
+    images: [`/api/og?title=${ogTitle}&subtitle=${ogSubtitle}`],
   },
   alternates: {
     canonical: "/writing",
@@ -42,7 +42,7 @@ export default function WritingPage() {
     <div className="relative">
       {/* Main content - centered */}
       <div className="max-w-2xl mx-auto px-6 py-6 md:py-12">
-        <h1 className="text-3xl font-medium mb-6">Writing</h1>
+        <h1 className="text-3xl font-medium mb-6">Beiträge</h1>
 
         <CategoryNav categories={categories} />
 
@@ -51,11 +51,11 @@ export default function WritingPage() {
             posts.map((post) => <PostCard key={post.slug} post={post} />)
           ) : (
             <p className="text-muted-foreground">
-              No posts yet. Add MDX files to{" "}
+              Noch keine Beiträge. Lege MDX-Dateien in{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded-md">
                 src/blog/
               </code>{" "}
-              to get started.
+              an, um loszulegen.
             </p>
           )}
         </div>

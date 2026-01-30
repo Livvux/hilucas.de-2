@@ -14,7 +14,7 @@ export function CategoryNav({ categories, desktopSidebar }: CategoryNavProps) {
     return (
       <div className="hidden xl:block absolute top-12 bottom-0 left-[calc(50%+336px)]">
         <aside className="sticky top-18 mt-1 pl-12">
-          <h2 className="font-medium mb-4 text-sm">Categories</h2>
+          <h2 className="font-medium mb-4 text-sm">Kategorien</h2>
           <ul>
             {categories.map((cat) => (
               <li key={cat}>

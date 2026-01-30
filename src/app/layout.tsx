@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
-    locale: "en_US",
+    locale: "de_DE",
     type: "website",
     images: [
       {
@@ -66,7 +66,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
+      lang="de"
       className={`${GeistSans.variable} ${GeistMono.variable}`}
       suppressHydrationWarning
       style={{ colorScheme: "dark light" }}

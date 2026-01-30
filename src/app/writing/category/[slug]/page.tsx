@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return {};
 
   const description =
-    categoryMeta[category]?.description ?? `Posts about ${category}`;
-  const ogImageUrl = `/api/og?title=${encodeURIComponent(category)}&subtitle=${encodeURIComponent("Posts in this category")}`;
+    categoryMeta[category]?.description ?? `Beiträge über ${category}`;
+  const ogImageUrl = `/api/og?title=${encodeURIComponent(category)}&subtitle=${encodeURIComponent("Beiträge in dieser Kategorie")}`;
 
   return {
     title: category,
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: `${category} posts`,
+        alt: `Beiträge zu ${category}`,
         },
       ],
     },
@@ -77,7 +77,7 @@ export default async function CategoryPage({ params }: Props) {
           )}
         </div>
         <Link href="/writing" variant="muted" className="text-sm">
-          ← All posts
+          ← Alle Beiträge
         </Link>
       </div>
 
@@ -86,7 +86,7 @@ export default async function CategoryPage({ params }: Props) {
           posts.map((post) => <PostCard key={post.slug} post={post} />)
         ) : (
           <p className="text-muted-foreground">
-            No posts in this category yet.
+            Noch keine Beiträge in dieser Kategorie.
           </p>
         )}
       </div>

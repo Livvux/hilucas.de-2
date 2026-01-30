@@ -106,7 +106,7 @@ export default async function PostPage({ params }: Props) {
             </time>
             {post.meta.draft && (
               <span className="px-2 py-0.5 text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 rounded">
-                Draft
+                Entwurf
               </span>
             )}
           </div>

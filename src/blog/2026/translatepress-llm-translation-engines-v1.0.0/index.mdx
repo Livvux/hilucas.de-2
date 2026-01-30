@@ -1,0 +1,107 @@
+---
+title: "Neues WordPress-Plugin: TranslatePress LLM Translation Engines"
+date: 2026-01-17
+excerpt: "Ein TranslatePress-Add-on, das KI-Übersetzungen mit OpenAI, Claude und OpenRouter ermöglicht."
+categories:
+  - WordPress
+  - TranslatePress
+  - Open Source
+  - KI
+  - Plugin-Entwicklung
+---
+
+Mein erstes WordPress-Plugin ist jetzt auf GitHub verfügbar! 🚀
+
+## Was ist das?
+
+**TranslatePress LLM Translation Engines** ist ein Add-on für das beliebte TranslatePress-Mehrsprachen-Plugin, das KI-gestützte Übersetzungsmöglichkeiten mit modernen Large Language Models hinzufügt.
+
+Anstatt in TranslatePress' eigenen Übersetzungsdienst gesperrt zu sein, gibt dir dieses Plugin volle Kontrolle darüber, welche KI-Engine du nutzt – und du zahlst nur für deine eigene API-Nutzung.
+
+## Die drei Engines
+
+### OpenAI (GPT)
+- Modelle: GPT-4o Mini (empfohlen), GPT-4o, GPT-4 Turbo, GPT-3.5 Turbo
+- Am besten für: Allgemeine Übersetzungen, exzellente Kontext-Verstehnis
+- Kosten: ~$0,15 pro Million Eingabe-Tokens (GPT-4o Mini)
+
+### Anthropic (Claude)
+- Modelle: Claude 3.5 Sonnet (empfohlen), Claude 3.5 Haiku (schnell), Claude 3 Opus
+- Am besten für: Natürliche, menschenähnliche Übersetzungen mit nuanciertem Verstehen
+- Kosten: ~$0,80 pro Million Eingabe-Tokens (Claude 3.5 Haiku)
+
+### OpenRouter (Universeller Zugriff)
+- Zugriff auf 100+ Modelle über einheitliche API
+- Anbieter: OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek und mehr
+- Am besten für: Verschiedene Modelle ausprobieren ohne mehrere API-Schlüssel zu verwalten
+
+## Hauptfunktionen
+
+### Intelligente Übersetzung
+- Erhält HTML-Tags und Formatierung
+- Bewahrt Platzhalter (%s, %d, {{variablen}})
+- Verarbeitet Übersetzungen in Blöcken (25 Strings pro Anfrage)
+- Unterstützt 80+ Sprachen
+
+### Kostentransparenz
+- Echtzeitige Preisanzeige für jedes Modell ($/1M Tokens)
+- Auswahl basierend auf Kosten-/Qualitäts-Kompromiss
+- Nur zahlen für das, was du nutzt
+
+### Saubere Integration
+- Sichere API-Schlüssel-Verwaltung mit Passwort-Feldern
+- Echtzeitige Validierung mit klaren Fehlermeldungen
+- Blendet TranslatePress AI-Upsell-Hinweise aus
+- Modell-Refresh-Buttons zum Abrufen neuester Modelle
+
+## Warum das bauen?
+
+TranslatePress bietet einen eigenen KI-Übersetzungsdienst, aber er ist eine Blackbox. Du zahlst eine Lizenzgebühr plus Nutzungskosten und bist auf ihre ausgewählten Modelle beschränkt.
+
+Dieses Add-on ändert das Spiel:
+
+- **Transparenz**: Siehst genau, welches Modell du nutzt
+- **Flexibilität**: Wechsle jederzeit zwischen Anbietern
+- **Kostenkontrolle**: Wähle günstigere Modelle für große Übersetzungsvolumen
+- **Modell-Zugriff**: Zugriff auf 100+ Modelle über OpenRouter
+
+## Technische Details
+
+### Anforderungen
+- WordPress 5.0+
+- PHP 7.4+
+- TranslatePress (Kostenlos oder Pro)
+
+### Architektur
+- Erweitert TranslatePress Machine Translation API
+- Separate Translator-Klasse für jeden Anbieter
+- AJAX-Modell-Laden von Anbieter-APIs
+- 24-Stunden-Transient-Caching für Modellisten
+
+## Hol es dir
+
+**GitHub**: https://github.com/Livvux/translatepress-llm-engines
+
+**Installation**:
+1. Lade die neueste Version herunter
+2. Lade in `/wp-content/plugins/` hoch
+3. Aktiviere in WordPress
+4. Navigiere zu **TranslatePress → Automatische Übersetzung**
+5. Wähle Engine, gib API-Schlüssel ein, wähle Modell
+
+## Was kommt als Nächstes?
+
+Bereich nachgedacht über v1.1.0:
+
+- [ ] Streaming-Antworten für schnellere Übersetzungen
+- [ ] Übersetzungsspeicher (Zwischenspeichern früherer Übersetzungen)
+- [ ] Benutzerdefinierte System-Prompts für bestimmte Inhaltstypen
+- [ ] Batch-Übersetzungswarteschlange für Massenoperationen
+
+## Open Source
+
+GPL2-lizenziert. Fork es, verbessere es, trage bei.
+
+---
+
+Mit ❤️ für das WordPress-Ökosystem erstellt. Lass mich wissen, wenn du Probleme findest oder Feature-Wünsche hast.

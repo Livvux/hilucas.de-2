@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // Shared date formatter for consistent date display across components
-export const dateFormatter = new Intl.DateTimeFormat("en-US", {
+export const dateFormatter = new Intl.DateTimeFormat("de-DE", {
   month: "short",
   day: "numeric",
   year: "numeric",
